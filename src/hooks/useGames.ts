@@ -3,6 +3,7 @@ import apiClient from "../services/api-client";
 export interface Game {
   id: string;
   name: string;
+  background_image: string;
 }
 
 import { CanceledError } from "axios";
