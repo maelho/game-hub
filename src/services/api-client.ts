@@ -24,6 +24,11 @@ class APICLient<T> {
     const res = await axiosIntance.get<FetchResponse<T>>(this.endpoint, config);
     return res.data;
   }
+
+  async getGAme(id: string | number) {
+    const res = await axiosIntance.get<T>(`${this.endpoint}/${id}`);
+    return res.data;
+  }
 }
 
 export default APICLient;
