@@ -1,6 +1,8 @@
-import useGenres from "./useGenres";
+import useGenres from './useGenres';
 
-export default function useGenre(id?: number) {
+const useGenre = (id?: number) => {
   const { data: genres } = useGenres();
-  return genres?.results.find((genre) => genre.id === id);
-}
+  return genres?.results.find((g) => g.id === id);
+};
+
+export default useGenre;
