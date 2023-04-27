@@ -16,10 +16,10 @@ export default function GenreList({ onSelectGenre, selectedGenre }: Props) {
   }
 
   return (
-    <div>
+    <>
       <Heading fontSize='2xl' marginBottom={3}>Genres</Heading>
       <List>
-        {data.map((genre) => (
+        {data?.results.map((genre) => (
           <ListItem key={genre.id} paddingY="5px">
             <HStack>
               <Image boxSize="32px" borderRadius={8} src={getCroppedImageUrl(genre.image_background)} objectFit='cover' />
@@ -37,6 +37,6 @@ export default function GenreList({ onSelectGenre, selectedGenre }: Props) {
           </ListItem>
         ))}
       </List>
-    </div>
+    </>
   );
 }
