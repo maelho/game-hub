@@ -17,15 +17,22 @@ export default function GenreList({ onSelectGenre, selectedGenreId }: Props) {
 
   return (
     <>
-      <Heading fontSize='2xl' marginBottom={3}>Genres</Heading>
+      <Heading fontSize="2xl" marginTop={9} marginBottom={3}>
+        Genres
+      </Heading>
       <List>
         {data?.results.map((genre) => (
           <ListItem key={genre.id} paddingY="5px">
             <HStack>
-              <Image boxSize="32px" borderRadius={8} src={getCroppedImageUrl(genre.image_background)} objectFit='cover' />
+              <Image
+                boxSize="32px"
+                borderRadius={8}
+                src={getCroppedImageUrl(genre.image_background)}
+                objectFit="cover"
+              />
               <Button
-                whiteSpace='normal'
-                textAlign='left'
+                whiteSpace="normal"
+                textAlign="left"
                 fontWeight={genre.id === selectedGenreId ? "bold" : "normal"}
                 onClick={() => onSelectGenre(genre)}
                 fontSize="lg"
