@@ -20,15 +20,17 @@ class APICLient<T> {
     this.endpoint = endpoint;
   }
 
-  async getAll(config: AxiosRequestConfig) {
-    const res = await axiosIntance.get<FetchResponse<T>>(this.endpoint, config);
-    return res.data;
-  }
+  getAll = (config: AxiosRequestConfig) => {
+    return axiosIntance
+      .get<FetchResponse<T>>(this.endpoint, config)
+      .then((res) => res.data);
+  };
 
-  async getGAme(id: string | number) {
-    const res = await axiosIntance.get<T>(`${this.endpoint}/${id}`);
-    return res.data;
-  }
+  get = (id: number | string) => {
+    return axiosIntance
+      .get<T>(this.endpoint + '/' + id)
+      .then((res) => res.data);
+  };
 }
 
 export default APICLient;
