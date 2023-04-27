@@ -7,8 +7,7 @@ export default function Layout() {
     <>
       <NavBar />
       <Box padding={5}>
-      <Outlet />
-
+        <Outlet />
       </Box>
     </>
   );
