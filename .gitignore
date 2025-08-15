@@ -12,7 +12,11 @@ dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# Environment files
+.env.local
+.env.*.local
+
+# IDE and OS files
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -22,3 +26,22 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Build and cache directories
+.cache
+.parcel-cache
+.nyc_output
+coverage/
+*.tsbuildinfo
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache

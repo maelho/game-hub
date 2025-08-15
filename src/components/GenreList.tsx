@@ -1,4 +1,12 @@
-import { List, ListItem, HStack, Image, Spinner, Button, Heading } from "@chakra-ui/react";
+import {
+  List,
+  ListItem,
+  HStack,
+  Image,
+  Spinner,
+  Button,
+  Heading,
+} from "@chakra-ui/react";
 import useGenres from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 import useGameQueryStore from "../store";
@@ -8,7 +16,7 @@ export default function GenreList() {
   const selectedGenreId = useGameQueryStore((s) => s.gameQuery.genreId);
   const setSelectedGenreId = useGameQueryStore((s) => s.setGenreId);
 
-  if (error) null;
+  if (error) return null;
   if (isLoading) {
     return <Spinner />;
   }
