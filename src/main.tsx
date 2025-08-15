@@ -1,20 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { RouterProvider } from "react-router-dom";
-import theme from "./theme";
+import { ThemeProvider } from "@/components/theme-provider";
 import router from "./routes";
+import "./globals.css";
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+    <ThemeProvider defaultTheme="dark" storageKey="game-hub-theme">
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>
-    </ChakraProvider>
-  </React.StrictMode>
+    </ThemeProvider>
+  </React.StrictMode>,
 );

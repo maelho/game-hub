@@ -1,7 +1,6 @@
-import { SimpleGrid, Text } from '@chakra-ui/react';
-import Game from '../entities/Game';
-import CriticScore from './CriticScore';
-import DefinitionItem from './DefinitionItem';
+import Game from "../entities/Game";
+import CriticScore from "./CriticScore";
+import DefinitionItem from "./DefinitionItem";
 
 interface Props {
   game: Game;
@@ -9,10 +8,10 @@ interface Props {
 
 const GameAttributes = ({ game }: Props) => {
   return (
-    <SimpleGrid columns={2} as="dl">
+    <dl className="grid grid-cols-2 gap-4">
       <DefinitionItem term="Platforms">
         {game.parent_platforms?.map(({ platform }) => (
-          <Text key={platform.id}>{platform.name}</Text>
+          <p key={platform.id}>{platform.name}</p>
         ))}
       </DefinitionItem>
       <DefinitionItem term="Metascore">
@@ -20,15 +19,15 @@ const GameAttributes = ({ game }: Props) => {
       </DefinitionItem>
       <DefinitionItem term="Genres">
         {game.genres.map((genre) => (
-          <Text key={genre.id}>{genre.name}</Text>
+          <p key={genre.id}>{genre.name}</p>
         ))}
       </DefinitionItem>
       <DefinitionItem term="Publishers">
         {game.publishers?.map((publisher) => (
-          <Text key={publisher.id}>{publisher.name}</Text>
+          <p key={publisher.id}>{publisher.name}</p>
         ))}
       </DefinitionItem>
-    </SimpleGrid>
+    </dl>
   );
 };
 

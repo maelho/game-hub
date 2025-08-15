@@ -1,12 +1,3 @@
-import {
-  List,
-  ListItem,
-  HStack,
-  Image,
-  Spinner,
-  Button,
-  Heading,
-} from "@chakra-ui/react";
 import useGenres from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 import useGameQueryStore from "../store";
@@ -18,38 +9,39 @@ export default function GenreList() {
 
   if (error) return null;
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <div className="flex justify-center p-4">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
   }
 
   return (
     <>
-      <Heading fontSize="2xl" marginTop={9} marginBottom={3}>
-        Genres
-      </Heading>
-      <List>
+      <h2 className="text-2xl font-bold mt-9 mb-3">Genres</h2>
+      <ul>
         {data?.results.map((genre) => (
-          <ListItem key={genre.id} paddingY="5px">
-            <HStack>
-              <Image
-                boxSize="32px"
-                borderRadius={8}
+          <li key={genre.id} className="py-1.5">
+            <div className="flex items-center">
+              <img
+                className="w-8 h-8 rounded-lg object-cover"
                 src={getCroppedImageUrl(genre.image_background)}
-                objectFit="cover"
+                alt={genre.name}
               />
-              <Button
-                whiteSpace="normal"
-                textAlign="left"
-                fontWeight={genre.id === selectedGenreId ? "bold" : "normal"}
+              <button
+                className={`ml-3 text-left text-lg hover:underline whitespace-normal ${
+                  genre.id === selectedGenreId
+                    ? "font-bold text-primary"
+                    : "font-normal text-foreground"
+                }`}
                 onClick={() => setSelectedGenreId(genre.id)}
-                fontSize="lg"
-                variant="link"
               >
                 {genre.name}
-              </Button>
-            </HStack>
-          </ListItem>
+              </button>
+            </div>
+          </li>
         ))}
-      </List>
+      </ul>
     </>
   );
 }

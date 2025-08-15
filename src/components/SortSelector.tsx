@@ -1,4 +1,10 @@
-import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { BsChevronDown } from "react-icons/bs";
 import useGameQueryStore from "../store";
 
@@ -14,20 +20,28 @@ export default function SortSelector() {
   const sortOrder = useGameQueryStore((s) => s.gameQuery.sortOrder);
   const setSortOrder = useGameQueryStore((s) => s.setSortOrder);
 
-  const currentSortOrder = sortOrders.find((order) => order.value === sortOrder);
+  const currentSortOrder = sortOrders.find(
+    (order) => order.value === sortOrder,
+  );
 
   return (
-    <Menu>
-      <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        Order by: {currentSortOrder?.label || "Relevance"}
-      </MenuButton>
-      <MenuList>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" className="flex items-center gap-2">
+          Order by: {currentSortOrder?.label || "Relevance"}
+          <BsChevronDown />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
         {sortOrders.map((order) => (
-          <MenuItem onClick={() => setSortOrder(order.value)} key={order.value} value={order.value}>
+          <DropdownMenuItem
+            key={order.value}
+            onClick={() => setSortOrder(order.value)}
+          >
             {order.label}
-          </MenuItem>
+          </DropdownMenuItem>
         ))}
-      </MenuList>
-    </Menu>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
