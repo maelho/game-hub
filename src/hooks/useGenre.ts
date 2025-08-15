@@ -1,8 +1,43 @@
-import useGenres from './useGenres';
+import { useQuery } from "@tanstack/react-query";
+import { genreQueries } from "../lib/query-options";
+import type { Genre } from "../entities/Genre";
 
-const useGenre = (id?: number) => {
-  const { data: genres } = useGenres();
-  return genres?.results.find((g) => g.id === id);
+export const useGenre = (id: number) => {
+  return useQuery({
+    ...genreQueries.detail(id),
+    select: (data: Genre) => ({
+      ...data,
+      hasGamesCount:
+        typeof data.games_count === "number" && data.games_count > 0,
+      isPopular: data.games_count ? data.games_count > 1000 : false,
+      hasImage: !!data.image_background,
+    }),
+  });
+};
+
+export const useGenreDetails = (id: number) => {
+  const query = useGenre(id);
+
+  return {
+    ...query,
+    genre: query.data,
+    isGenreLoading: query.isLoading,
+    genreError: query.error,
+    hasGenre: !!query.data,
+  };
+};
+
+export const useGenreBasicInfo = (id: number) => {
+  const { data } = useGenre(id);
+
+  return {
+    id: data?.id,
+    name: data?.name,
+    slug: data?.slug,
+    gamesCount: data?.games_count,
+    imageBackground: data?.image_background,
+    description: data?.description,
+  };
 };
 
 export default useGenre;

@@ -1,5 +1,14 @@
-export default interface Genre {
-  id: number;
+export interface Genre {
+  readonly id: number;
   name: string;
-  image_background: string;
+  slug: string;
+  games_count: number;
+  image_background?: string;
+  description?: string;
 }
+
+export interface GenreDetails extends Genre {
+  description: string;
+}
+
+export default Genre;
