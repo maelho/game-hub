@@ -1,14 +1,24 @@
-import { Badge } from "@chakra-ui/react";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 interface Props {
   score: number;
 }
 
 export default function CriticScore({ score }: Props) {
-  const color = score > 75 ? "green" : score > 60 ? "yellow" : "";
+  const getScoreColor = (score: number) => {
+    if (score > 75) return "bg-green-500 hover:bg-green-600";
+    if (score > 60) return "bg-yellow-500 hover:bg-yellow-600";
+    return "bg-gray-500 hover:bg-gray-600";
+  };
 
   return (
-    <Badge colorScheme={color} fontSize="14px" paddingX={2} borderRadius="4px">
+    <Badge
+      className={cn(
+        "text-white px-2 py-1 text-sm rounded",
+        getScoreColor(score),
+      )}
+    >
       {score}
     </Badge>
   );

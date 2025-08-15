@@ -1,4 +1,3 @@
-import { Box, Flex, Grid, GridItem, Show } from "@chakra-ui/react";
 import GameGrid from "../components/GameGrid";
 import GameHeading from "../components/GameHeading";
 import GenreList from "../components/GenreList";
@@ -7,36 +6,24 @@ import SortSelector from "../components/SortSelector";
 
 export default function HomePage() {
   return (
-    <Grid
-      templateAreas={{
-        base: `"main"`,
-        lg: `"aside main"`,
-      }}
-      templateColumns={{
-        base: "1fr",
-        lg: "250px 1fr",
-      }}
-    >
-      <Show above="lg">
-        <GridItem area="aside" paddingX={5}>
-          <GenreList />
-        </GridItem>
-      </Show>
+    <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr]">
+      <div className="hidden lg:block px-5">
+        <GenreList />
+      </div>
 
-      <GridItem area="main">
-        <Box paddingLeft={2}>
+      <div>
+        <div className="pl-2">
           <GameHeading />
-          <Flex marginBottom={5}>
-            <Box marginRight={5}>
+          <div className="flex mb-5">
+            <div className="mr-5">
               <PlatformSelector />
-            </Box>
-
+            </div>
             <SortSelector />
-          </Flex>
-        </Box>
+          </div>
+        </div>
 
         <GameGrid />
-      </GridItem>
-    </Grid>
+      </div>
+    </div>
   );
 }

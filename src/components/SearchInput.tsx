@@ -1,4 +1,4 @@
-import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { Input } from "@/components/ui/input";
 import { useRef } from "react";
 import { BsSearch } from "react-icons/bs";
 import useGameQueryStore from "../store";
@@ -10,16 +10,20 @@ export default function SearchInput() {
 
   return (
     <form
-      style={{ width: "100%" }}
+      className="w-full"
       onSubmit={(event) => {
         event.preventDefault();
         if (ref.current) setSearchText(ref.current.value);
       }}
     >
-      <InputGroup>
-        <InputLeftElement children={<BsSearch />} />
-        <Input ref={ref} borderRadius={20} variant="filled" placeholder="Search games..." />;
-      </InputGroup>
+      <div className="relative">
+        <BsSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+        <Input
+          ref={ref}
+          className="pl-10 rounded-full bg-muted"
+          placeholder="Search games..."
+        />
+      </div>
     </form>
   );
 }

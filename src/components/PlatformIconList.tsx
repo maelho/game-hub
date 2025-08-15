@@ -1,7 +1,12 @@
-import { HStack, Icon } from "@chakra-ui/react";
 import { IconType } from "react-icons";
-import { FaXbox, FaApple, FaPlaystation, FaLinux, FaWindows, FaAndroid } from "react-icons/fa";
-
+import {
+  FaXbox,
+  FaApple,
+  FaPlaystation,
+  FaLinux,
+  FaWindows,
+  FaAndroid,
+} from "react-icons/fa";
 import { MdPhoneIphone } from "react-icons/md";
 import { SiNintendo } from "react-icons/si";
 import { BsGlobeAsiaAustralia } from "react-icons/bs";
@@ -25,10 +30,13 @@ export default function PlatformIconList({ platforms }: Props) {
   };
 
   return (
-    <HStack marginY={1}>
-      {platforms.map((platform) => (
-        <Icon key={platform.id} as={iconMap[platform.slug]} color='gray.500' />
-      ))}
-    </HStack>
+    <div className="flex space-x-2 my-1">
+      {platforms.map((platform) => {
+        const IconComponent = iconMap[platform.slug];
+        return IconComponent ? (
+          <IconComponent key={platform.id} className="text-gray-500" />
+        ) : null;
+      })}
+    </div>
   );
 }
