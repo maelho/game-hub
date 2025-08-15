@@ -1,22 +1,66 @@
 import { useQuery } from "@tanstack/react-query";
-import ms from "ms";
+import { genreQueries } from "../lib/query-options";
 import genres from "../data/genres";
-import APIClient from "../services/api-client";
+import type { Genre } from "../entities/Genre";
 
-const apiClient = new APIClient<Genre>("/genres");
-
-export interface Genre {
-  id: number;
-  name: string;
-  image_background: string;
-}
-
-const useGenres = () =>
-  useQuery({
-    queryKey: ["genres"],
-    queryFn: apiClient.getAll,
-    staleTime: ms("24h"),
-    initialData: { count: genres.length, results: genres, next: null },
+export const useGenres = () => {
+  return useQuery({
+    ...genreQueries.list({
+      count: genres.length,
+      results: genres,
+    }),
+    select: (data) => ({
+      ...data,
+      genres: data.results,
+      genreCount: data.count,
+    }),
   });
+};
+
+export const useGenresList = () => {
+  const { data } = useGenres();
+  return data?.genres ?? [];
+};
+
+export const useGenre = (id: number) => {
+  return useQuery({
+    ...genreQueries.detail(id),
+  });
+};
+
+export const useGenreBySlug = (slug: string) => {
+  const { data } = useGenres();
+  return data?.genres.find((genre) => genre.slug === slug);
+};
+
+export const useGenreOptions = () => {
+  const { data, isLoading } = useGenres();
+
+  return {
+    options:
+      data?.genres.map((genre) => ({
+        value: genre.id,
+        label: genre.name,
+        slug: genre.slug,
+      })) ?? [],
+    isLoading,
+  };
+};
+
+export const useGenresWithGamesCount = () => {
+  const { data } = useGenres();
+
+  return data?.genres.filter((genre) => genre.games_count > 0) ?? [];
+};
+
+export const usePopularGenres = (limit = 10) => {
+  const { data } = useGenres();
+
+  return (
+    data?.genres
+      .sort((a, b) => (b.games_count || 0) - (a.games_count || 0))
+      .slice(0, limit) ?? []
+  );
+};
 
 export default useGenres;
