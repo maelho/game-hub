@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ColorModeSwich from "./color-mode-switch";
+import ColorModeSwitch from "./color-mode-switch";
 import SearchInput from "./search-input";
 
 export default function NavBar() {
@@ -20,7 +20,7 @@ export default function NavBar() {
             <div className="hidden md:block w-80">
               <SearchInput />
             </div>
-            <ColorModeSwich />
+            <ColorModeSwitch />
           </div>
         </div>
 

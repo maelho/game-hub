@@ -21,7 +21,7 @@ const ExpandableText = ({ children }: Props) => {
       <Button
         size="sm"
         variant="link"
-        className="ml-1 p-0 h-auto font-bold text-yellow-500 hover:text-yellow-600"
+        className="ml-1 p-0 h-auto font-bold text-primary hover:text-primary/80"
         onClick={() => setExpanded(!expanded)}
       >
         {expanded ? "Show Less" : "Read More"}
