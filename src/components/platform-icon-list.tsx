@@ -30,13 +30,21 @@ export default function PlatformIconList({ platforms }: Props) {
   };
 
   return (
-    <div className="flex space-x-2 my-1">
-      {platforms.map((platform) => {
+    <div className="flex items-center space-x-1.5">
+      {platforms.slice(0, 4).map((platform) => {
         const IconComponent = iconMap[platform.slug];
         return IconComponent ? (
-          <IconComponent key={platform.id} className="text-gray-500" />
+          <IconComponent
+            key={platform.id}
+            className="w-3.5 h-3.5 text-muted-foreground/60"
+          />
         ) : null;
       })}
+      {platforms.length > 4 && (
+        <span className="text-xs text-muted-foreground/40 ml-1">
+          +{platforms.length - 4}
+        </span>
+      )}
     </div>
   );
 }

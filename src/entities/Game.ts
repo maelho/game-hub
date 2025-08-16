@@ -139,6 +139,7 @@ export interface GameFilters {
   platformId?: number;
   sortOrder?: string;
   searchText?: string;
+  [key: string]: unknown;
 }
 
 export interface GameListItem extends Omit<Game, "description_raw"> {

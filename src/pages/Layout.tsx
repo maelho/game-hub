@@ -1,13 +1,11 @@
-import NavBar from "../components/NavBar";
+import NavBar from "../components/nav-bar";
 import { Outlet } from "react-router-dom";
 
 export default function Layout() {
   return (
     <>
       <NavBar />
-      <div className="p-5">
-        <Outlet />
-      </div>
+      <Outlet />
     </>
   );
 }
