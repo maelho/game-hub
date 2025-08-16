@@ -23,28 +23,6 @@ export const useGames = (customFilters?: Partial<GameFilters>) => {
   });
 };
 
-export const useGamesCount = () => {
-  const { data } = useGames();
-  return data?.totalCount ?? 0;
-};
 
-export const useGamesData = () => {
-  const { data } = useGames();
-  return data?.games ?? [];
-};
-
-export const useGamesPagination = () => {
-  const query = useGames();
-
-  return {
-    ...query,
-    games: query.data?.games ?? [],
-    totalCount: query.data?.totalCount ?? 0,
-    hasNextPage: query.data?.hasNextPage ?? false,
-    isLoadingNextPage: query.isFetchingNextPage,
-    loadNextPage: query.fetchNextPage,
-    canLoadMore: query.hasNextPage && !query.isFetchingNextPage,
-  };
-};
 
 export default useGames;

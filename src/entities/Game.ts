@@ -1,6 +1,5 @@
 import type { Genre } from "./Genre";
 import type { Platform } from "./Platform";
-import type { Publisher } from "./Publisher";
 
 export interface Game {
   readonly id: number;
@@ -33,7 +32,13 @@ export interface Game {
     slug: string;
   };
   genres: Genre[];
-  publishers: Publisher[];
+  publishers: {
+    id: number;
+    name: string;
+    slug: string;
+    games_count: number;
+    image_background?: string;
+  }[];
   parent_platforms: { platform: Platform }[];
   platforms?: {
     platform: Platform;
