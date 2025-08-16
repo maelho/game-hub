@@ -6,10 +6,14 @@ export default function GameHeading() {
   const genreId = useGameQueryStore((s) => s.gameQuery.genreId);
   const platformId = useGameQueryStore((s) => s.gameQuery.platformId);
 
-  const genre = useGenre(genreId);
-  const platform = usePlatform(platformId);
+  const { data: genre } = useGenre(genreId);
+  const { data: platform } = usePlatform(platformId);
 
-  const heading = `${platform?.name || ""} ${genre?.name || ""} Games`;
+  const heading = `${platform?.name || ""} ${genre?.name || ""} Games`.trim();
 
-  return <h1 className="text-5xl font-bold my-5">{heading}</h1>;
+  return (
+    <h1 className="text-2xl font-medium text-foreground tracking-tight">
+      {heading}
+    </h1>
+  );
 }

@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { platformQueries } from "../lib/query-options";
 import type { Platform } from "../entities/Platform";
 
-export const usePlatform = (id: number) => {
+export const usePlatform = (id?: number) => {
   return useQuery({
-    ...platformQueries.detail(id),
+    ...platformQueries.detail(id || 0),
+    enabled: !!id,
     select: (data: Platform) => ({
       ...data,
       hasGamesCount:
@@ -19,7 +20,7 @@ export const usePlatform = (id: number) => {
   });
 };
 
-export const usePlatformDetails = (id: number) => {
+export const usePlatformDetails = (id?: number) => {
   const query = usePlatform(id);
 
   return {
@@ -31,7 +32,7 @@ export const usePlatformDetails = (id: number) => {
   };
 };
 
-export const usePlatformBasicInfo = (id: number) => {
+export const usePlatformBasicInfo = (id?: number) => {
   const { data } = usePlatform(id);
 
   return {
@@ -47,7 +48,7 @@ export const usePlatformBasicInfo = (id: number) => {
   };
 };
 
-const getPlatformEra = (yearStart?: number, yearEnd?: number): string => {
+const getPlatformEra = (yearStart?: number, _yearEnd?: number): string => {
   if (!yearStart) return "Unknown";
 
   const currentYear = new Date().getFullYear();

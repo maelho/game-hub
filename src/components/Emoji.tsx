@@ -3,7 +3,7 @@ import thumbsUp from "../assets/thumbs-up.webp";
 import meh from "../assets/meh.webp";
 
 interface Props {
-  rating: number;
+  rating?: number;
 }
 
 interface EmojiData {
@@ -13,7 +13,7 @@ interface EmojiData {
 }
 
 export default function Emoji({ rating }: Props) {
-  if (rating < 3) return null;
+  if (!rating || rating < 3) return null;
 
   const emojiMap: { [key: number]: EmojiData } = {
     3: { src: meh, alt: "meh", size: "w-6 h-6" },

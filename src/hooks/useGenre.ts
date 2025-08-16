@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { genreQueries } from "../lib/query-options";
 import type { Genre } from "../entities/Genre";
 
-export const useGenre = (id: number) => {
+export const useGenre = (id?: number) => {
   return useQuery({
-    ...genreQueries.detail(id),
+    ...genreQueries.detail(id || 0),
+    enabled: !!id,
     select: (data: Genre) => ({
       ...data,
       hasGamesCount:
@@ -15,7 +16,7 @@ export const useGenre = (id: number) => {
   });
 };
 
-export const useGenreDetails = (id: number) => {
+export const useGenreDetails = (id?: number) => {
   const query = useGenre(id);
 
   return {
@@ -27,7 +28,7 @@ export const useGenreDetails = (id: number) => {
   };
 };
 
-export const useGenreBasicInfo = (id: number) => {
+export const useGenreBasicInfo = (id?: number) => {
   const { data } = useGenre(id);
 
   return {

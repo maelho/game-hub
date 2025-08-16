@@ -1,6 +1,6 @@
 import Game from "../entities/Game";
-import CriticScore from "./CriticScore";
-import DefinitionItem from "./DefinitionItem";
+import CriticScore from "./critic-score";
+import DefinitionItem from "./definition-item";
 
 interface Props {
   game: Game;

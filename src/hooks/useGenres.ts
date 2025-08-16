@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { genreQueries } from "../lib/query-options";
 import genres from "../data/genres";
-import type { Genre } from "../entities/Genre";
 
 export const useGenres = () => {
   return useQuery({
