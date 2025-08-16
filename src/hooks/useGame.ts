@@ -17,32 +17,6 @@ export const useGame = (slug: string | number) => {
   });
 };
 
-export const useGameDetails = (slug: string | number) => {
-  const query = useGame(slug);
 
-  return {
-    ...query,
-    game: query.data,
-    isGameLoading: query.isLoading,
-    gameError: query.error,
-    hasGame: !!query.data,
-  };
-};
-
-export const useGameBasicInfo = (slug: string | number) => {
-  const { data } = useGame(slug);
-
-  return {
-    name: data?.name,
-    slug: data?.slug,
-    backgroundImage: data?.background_image,
-    metacritic: data?.metacritic,
-    rating: data?.rating_top,
-    released: data?.released,
-    genres: data?.genreNames ?? [],
-    platforms: data?.platformNames ?? [],
-    publishers: data?.publisherNames ?? [],
-  };
-};
 
 export default useGame;

@@ -16,29 +16,6 @@ export const useGenre = (id?: number) => {
   });
 };
 
-export const useGenreDetails = (id?: number) => {
-  const query = useGenre(id);
 
-  return {
-    ...query,
-    genre: query.data,
-    isGenreLoading: query.isLoading,
-    genreError: query.error,
-    hasGenre: !!query.data,
-  };
-};
-
-export const useGenreBasicInfo = (id?: number) => {
-  const { data } = useGenre(id);
-
-  return {
-    id: data?.id,
-    name: data?.name,
-    slug: data?.slug,
-    gamesCount: data?.games_count,
-    imageBackground: data?.image_background,
-    description: data?.description,
-  };
-};
 
 export default useGenre;

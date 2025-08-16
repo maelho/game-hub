@@ -1,11 +1,11 @@
 import { queryOptions, infiniteQueryOptions } from "@tanstack/react-query";
 import ms from "ms";
-import type { AxiosRequestConfig } from "axios";
+
 import APIClient from "../services/api-client";
 import type { Game, GameFilters } from "../entities/Game";
 import type { Genre } from "../entities/Genre";
 import type { Platform } from "../entities/Platform";
-import type { Publisher } from "../entities/Publisher";
+
 import type { Screenshot } from "../entities/Screenshot";
 import type { Trailer } from "../entities/Trailer";
 import { queryKeys } from "./query-keys";
@@ -135,35 +135,6 @@ export const platformQueries = {
       queryKey: queryKeys.platform(id),
       queryFn: () => {
         const apiClient = new APIClient<Platform>("/platforms");
-        return apiClient.get(id);
-      },
-      staleTime: LONG_STALE_TIME,
-      retry: DEFAULT_RETRY,
-      retryDelay: DEFAULT_RETRY_DELAY,
-      enabled: !!id && id > 0,
-    }),
-};
-
-export const publisherQueries = {
-  all: () => queryKeys.publishers(),
-
-  list: () =>
-    queryOptions({
-      queryKey: queryKeys.publishersList(),
-      queryFn: () => {
-        const apiClient = new APIClient<Publisher>("/publishers");
-        return apiClient.getAll();
-      },
-      staleTime: LONG_STALE_TIME,
-      retry: DEFAULT_RETRY,
-      retryDelay: DEFAULT_RETRY_DELAY,
-    }),
-
-  detail: (id: number) =>
-    queryOptions({
-      queryKey: queryKeys.publisher(id),
-      queryFn: () => {
-        const apiClient = new APIClient<Publisher>("/publishers");
         return apiClient.get(id);
       },
       staleTime: LONG_STALE_TIME,
