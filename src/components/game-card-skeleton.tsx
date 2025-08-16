@@ -3,18 +3,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function GameCardSkeleton() {
   return (
-    <Card className="overflow-hidden border bg-card relative">
-      {/* Rating skeleton in top right */}
+    <Card className="overflow-hidden border bg-card relative p-0 gap-0">
       <div className="absolute top-2 right-2 z-10">
         <Skeleton className="h-6 w-8 rounded" />
       </div>
 
-      {/* Image skeleton at border top */}
       <div className="aspect-video">
         <Skeleton className="w-full h-full" />
       </div>
 
-      {/* Content with reduced padding */}
       <div className="p-3 space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-1.5">

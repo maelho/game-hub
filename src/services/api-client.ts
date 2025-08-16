@@ -38,7 +38,6 @@ const API_BASE_URL =
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 if (!API_KEY) {
-  // eslint-disable-next-line no-console
   console.error("VITE_API_KEY is not defined in environment variables");
   throw new Error("API key is required but not found in environment variables");
 }
@@ -89,7 +88,6 @@ const handleAPIError = (error: AxiosError): never => {
 axiosInstance.interceptors.request.use(
   (config) => {
     if (import.meta.env.VITE_DEBUG === "true") {
-      // eslint-disable-next-line no-console
       console.log("API Request:", {
         url: config.url,
         method: config.method?.toUpperCase(),
@@ -101,7 +99,6 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     if (import.meta.env.VITE_DEBUG === "true") {
-      // eslint-disable-next-line no-console
       console.error("API Request Error:", error);
     }
     return Promise.reject(error);
@@ -111,7 +108,6 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     if (import.meta.env.VITE_DEBUG === "true") {
-      // eslint-disable-next-line no-console
       console.log("API Response:", {
         url: response.config.url,
         status: response.status,
@@ -123,7 +119,6 @@ axiosInstance.interceptors.response.use(
   },
   (error: AxiosError) => {
     if (import.meta.env.VITE_DEBUG === "true") {
-      // eslint-disable-next-line no-console
       console.error("API Response Error:", {
         url: error.config?.url,
         status: error.response?.status,

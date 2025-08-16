@@ -11,7 +11,7 @@ interface Props {
 
 export default function GameCard({ game }: Props) {
   return (
-    <Card className="group overflow-hidden border bg-card hover:bg-accent/50 hover:shadow-md transition-all duration-200 relative">
+    <Card className="group overflow-hidden border bg-card hover:bg-accent/50 hover:shadow-md transition-all duration-200 relative p-0 gap-0">
       <Link to={"/games/" + game.slug} className="block">
         {game.background_image && (
           <div className="relative overflow-hidden aspect-video">
@@ -23,7 +23,6 @@ export default function GameCard({ game }: Props) {
           </div>
         )}
 
-        {/* Content without padding */}
         <div className="p-3 space-y-2">
           <div className="flex items-center justify-between">
             <PlatformIconList

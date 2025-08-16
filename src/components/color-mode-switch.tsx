@@ -2,11 +2,15 @@ import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 
-export default function ColorModeSwich() {
+export default function ColorModeSwitch() {
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    if (theme === "system") {
+      setTheme("light");
+    } else {
+      setTheme(theme === "light" ? "dark" : "light");
+    }
   };
 
   return (

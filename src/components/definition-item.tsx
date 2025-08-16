@@ -8,9 +8,7 @@ interface Props {
 const DefinitionItem = ({ term, children }: Props) => {
   return (
     <div className="my-5">
-      <dt className="text-sm font-medium text-gray-600 dark:text-gray-400">
-        {term}
-      </dt>
+      <dt className="text-sm font-medium text-muted-foreground">{term}</dt>
       <dd className="mt-1">{children}</dd>
     </div>
   );
