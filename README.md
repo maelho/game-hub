@@ -29,7 +29,6 @@ A modern game discovery application built with React, TypeScript, and the latest
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) (latest version)
 - RAWG API key
 
 ### Installation
@@ -57,51 +56,3 @@ bun run dev
 ```
 
 The application will be available at `http://localhost:3000`.
-
-## Scripts
-
-- `bun run dev` - Start development server
-- `bun run build` - Build for production
-- `bun run build:staging` - Build for staging environment
-- `bun run preview` - Preview production build
-- `bun run lint` - Run ESLint
-- `bun run lint:fix` - Fix ESLint issues
-- `bun run type-check` - Run TypeScript type checking
-
-## Project Structure
-
-```
-src/
-├── components/          # Reusable UI components
-│   ├── ui/             # shadcn/ui components
-│   └── ...             # Application components
-├── pages/              # Page components
-├── hooks/              # Custom React hooks
-├── services/           # API services
-├── entities/           # TypeScript interfaces
-├── lib/                # Utility functions
-├── assets/             # Static assets
-└── globals.css         # Global styles
-```
-
-## UI Components
-
-This project uses [shadcn/ui](https://ui.shadcn.com/) for UI components, which provides:
-
-- Accessible and customizable components
-- Built on Radix UI primitives
-- Styled with Tailwind CSS
-- Full TypeScript support
-- Copy-paste component architecture
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a pull request
-
-## License
-
-This project is licensed under the MIT License.
