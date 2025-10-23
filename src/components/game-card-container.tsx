@@ -1,11 +1,11 @@
 interface Props {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function GameCardContainer({ children }: Props) {
   return (
-    <div className="rounded-lg overflow-hidden w-full hover:scale-105 transition-transform duration-150 ease-in">
+    <div className="w-full overflow-hidden rounded-lg transition-transform duration-150 ease-in hover:scale-105">
       {children}
     </div>
-  );
+  )
 }

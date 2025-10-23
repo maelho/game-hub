@@ -1,7 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import { platformQueries } from "../lib/query-options";
-import platforms from "../data/platforms";
-
+import { useQuery } from '@tanstack/react-query'
+import platforms from '../data/platforms'
+import { platformQueries } from '../lib/query-options'
 
 export const usePlatforms = () => {
   return useQuery({
@@ -14,9 +13,7 @@ export const usePlatforms = () => {
       platforms: data.results,
       platformCount: data.count,
     }),
-  });
-};
+  })
+}
 
-
-
-export default usePlatforms;
+export default usePlatforms

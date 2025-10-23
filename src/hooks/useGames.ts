@@ -1,15 +1,15 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { gameQueries } from "../lib/query-options";
-import useGameQueryStore from "../store";
-import type { GameFilters } from "../entities/Game";
+import { useInfiniteQuery } from '@tanstack/react-query'
+import type { GameFilters } from '../entities/Game'
+import { gameQueries } from '../lib/query-options'
+import useGameQueryStore from '../store'
 
 export const useGames = (customFilters?: Partial<GameFilters>) => {
-  const gameQuery = useGameQueryStore((s) => s.gameQuery);
+  const gameQuery = useGameQueryStore((s) => s.gameQuery)
 
   const filters: GameFilters = {
     ...gameQuery,
     ...customFilters,
-  };
+  }
 
   return useInfiniteQuery({
     ...gameQueries.infinite(filters),
@@ -20,9 +20,7 @@ export const useGames = (customFilters?: Partial<GameFilters>) => {
       totalCount: data.pages[0]?.count ?? 0,
       hasNextPage: data.pages[data.pages.length - 1]?.next != null,
     }),
-  });
-};
+  })
+}
 
-
-
-export default useGames;
+export default useGames

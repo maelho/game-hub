@@ -1,19 +1,19 @@
-import { IconType } from "react-icons";
+import type { IconType } from 'react-icons'
+import { BsGlobeAsiaAustralia } from 'react-icons/bs'
 import {
-  FaXbox,
-  FaApple,
-  FaPlaystation,
-  FaLinux,
-  FaWindows,
   FaAndroid,
-} from "react-icons/fa";
-import { MdPhoneIphone } from "react-icons/md";
-import { SiNintendo } from "react-icons/si";
-import { BsGlobeAsiaAustralia } from "react-icons/bs";
-import Platform from "../entities/Platform";
+  FaApple,
+  FaLinux,
+  FaPlaystation,
+  FaWindows,
+  FaXbox,
+} from 'react-icons/fa'
+import { MdPhoneIphone } from 'react-icons/md'
+import { SiNintendo } from 'react-icons/si'
+import type { Platform } from '../entities/Platform'
 
 interface Props {
-  platforms: Platform[];
+  platforms: Platform[]
 }
 
 export default function PlatformIconList({ platforms }: Props) {
@@ -27,24 +27,24 @@ export default function PlatformIconList({ platforms }: Props) {
     android: FaAndroid,
     nintendo: SiNintendo,
     web: BsGlobeAsiaAustralia,
-  };
+  }
 
   return (
     <div className="flex items-center space-x-1.5">
       {platforms.slice(0, 4).map((platform) => {
-        const IconComponent = iconMap[platform.slug];
+        const IconComponent = iconMap[platform.slug]
         return IconComponent ? (
           <IconComponent
             key={platform.id}
-            className="w-3.5 h-3.5 text-muted-foreground/60"
+            className="h-3.5 w-3.5 text-muted-foreground/60"
           />
-        ) : null;
+        ) : null
       })}
       {platforms.length > 4 && (
-        <span className="text-xs text-muted-foreground/40 ml-1">
+        <span className="ml-1 text-muted-foreground/40 text-xs">
           +{platforms.length - 4}
         </span>
       )}
     </div>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { gameQueries } from "../lib/query-options";
+import { useQuery } from '@tanstack/react-query'
+import { gameQueries } from '../lib/query-options'
 
 export const useTrailers = (gameId: number) => {
   return useQuery({
@@ -10,9 +10,7 @@ export const useTrailers = (gameId: number) => {
       trailerCount: data.count,
       hasTrailers: data.results.length > 0,
     }),
-  });
-};
+  })
+}
 
-
-
-export default useTrailers;
+export default useTrailers

@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import { platformQueries } from "../lib/query-options";
-import type { Platform } from "../entities/Platform";
+import { useQuery } from '@tanstack/react-query'
+import type { Platform } from '../entities/Platform'
+import { platformQueries } from '../lib/query-options'
 
 export const usePlatform = (id?: number) => {
   return useQuery({
@@ -9,16 +9,14 @@ export const usePlatform = (id?: number) => {
     select: (data: Platform) => ({
       ...data,
       hasGamesCount:
-        typeof data.games_count === "number" && data.games_count > 0,
+        typeof data.games_count === 'number' && data.games_count > 0,
       isPopular: data.games_count ? data.games_count > 1000 : false,
       hasImage: !!data.image_background,
       isActive: data.year_end
         ? data.year_end >= new Date().getFullYear()
         : true,
     }),
-  });
-};
+  })
+}
 
-
-
-export default usePlatform;
+export default usePlatform
