@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import { genreQueries } from "../lib/query-options";
-import genres from "../data/genres";
+import { useQuery } from '@tanstack/react-query'
+import genres from '../data/genres'
+import { genreQueries } from '../lib/query-options'
 
 export const useGenres = () => {
   return useQuery({
@@ -13,9 +13,7 @@ export const useGenres = () => {
       genres: data.results,
       genreCount: data.count,
     }),
-  });
-};
+  })
+}
 
-
-
-export default useGenres;
+export default useGenres

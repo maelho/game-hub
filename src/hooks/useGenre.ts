@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import { genreQueries } from "../lib/query-options";
-import type { Genre } from "../entities/Genre";
+import { useQuery } from '@tanstack/react-query'
+import type { Genre } from '../entities/Genre'
+import { genreQueries } from '../lib/query-options'
 
 export const useGenre = (id?: number) => {
   return useQuery({
@@ -9,13 +9,11 @@ export const useGenre = (id?: number) => {
     select: (data: Genre) => ({
       ...data,
       hasGamesCount:
-        typeof data.games_count === "number" && data.games_count > 0,
+        typeof data.games_count === 'number' && data.games_count > 0,
       isPopular: data.games_count ? data.games_count > 1000 : false,
       hasImage: !!data.image_background,
     }),
-  });
-};
+  })
+}
 
-
-
-export default useGenre;
+export default useGenre

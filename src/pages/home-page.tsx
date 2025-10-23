@@ -1,25 +1,25 @@
-import GameGrid from "../components/game-grid";
-import GameHeading from "../components/game-heading";
-import GenreList from "../components/genre-list";
-import PlatformSelector from "../components/platform-selector";
-import SortSelector from "../components/sort-selector";
+import GameGrid from '../components/game-grid'
+import GameHeading from '../components/game-heading'
+import GenreList from '../components/genre-list'
+import PlatformSelector from '../components/platform-selector'
+import SortSelector from '../components/sort-selector'
 
 export default function HomePage() {
   return (
-    <div className="max-w-7xl mx-auto px-6 py-8">
-      <div className="flex flex-col lg:flex-row gap-8">
+    <div className="mx-auto max-w-7xl px-6 py-8">
+      <div className="flex flex-col gap-8 lg:flex-row">
         <aside className="lg:w-64 lg:shrink-0">
           <div className="lg:sticky lg:top-24">
             <GenreList />
           </div>
         </aside>
 
-        <main className="flex-1 min-w-0">
+        <main className="min-w-0 flex-1">
           <div className="space-y-6">
             <div className="space-y-4">
               <GameHeading />
 
-              <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                 <PlatformSelector />
                 <SortSelector />
               </div>
@@ -30,5 +30,5 @@ export default function HomePage() {
         </main>
       </div>
     </div>
-  );
+  )
 }

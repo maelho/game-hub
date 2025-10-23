@@ -1,37 +1,37 @@
-import { Input } from "@/components/ui/input";
-import { useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Search } from "lucide-react";
-import useGameQueryStore from "../store";
+import { Search } from 'lucide-react'
+import { useRef } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { Input } from '@/components/ui/input'
+import useGameQueryStore from '../store'
 
 export default function SearchInput() {
-  const ref = useRef<HTMLInputElement>(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const setSearchText = useGameQueryStore((s) => s.setSearchText);
+  const ref = useRef<HTMLInputElement>(null)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const setSearchText = useGameQueryStore((s) => s.setSearchText)
 
   const handleSearch = (event: React.FormEvent) => {
-    event.preventDefault();
+    event.preventDefault()
     if (ref.current) {
-      const searchValue = ref.current.value.trim();
-      setSearchText(searchValue);
+      const searchValue = ref.current.value.trim()
+      setSearchText(searchValue)
 
-      if (location.pathname !== "/") {
-        navigate("/");
+      if (location.pathname !== '/') {
+        navigate('/')
       }
     }
-  };
+  }
 
   return (
     <form className="w-full" onSubmit={handleSearch}>
-      <div className="relative group">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-foreground transition-colors" />
+      <div className="group relative">
+        <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 transform text-muted-foreground transition-colors group-focus-within:text-foreground" />
         <Input
           ref={ref}
-          className="pl-10 bg-muted/50 border-0 focus:bg-muted focus:ring-1 focus:ring-border rounded-md h-10 text-sm placeholder:text-muted-foreground/70"
+          className="h-10 rounded-md border-0 bg-muted/50 pl-10 text-sm placeholder:text-muted-foreground/70 focus:bg-muted focus:ring-1 focus:ring-border"
           placeholder="Search games..."
         />
       </div>
     </form>
-  );
+  )
 }

@@ -1,29 +1,29 @@
-import { Card } from "@/components/ui/card";
-import PlatformIconList from "./platform-icon-list";
-import CriticScore from "./critic-score";
-import getCroppedImageUrl from "../services/image-url";
-import { Link } from "react-router-dom";
-import Game from "../entities/Game";
+import { Link } from 'react-router-dom'
+import { Card } from '@/components/ui/card'
+import type { Game } from '../entities/Game'
+import getCroppedImageUrl from '../services/image-url'
+import CriticScore from './critic-score'
+import PlatformIconList from './platform-icon-list'
 
 interface Props {
-  game: Game;
+  game: Game
 }
 
 export default function GameCard({ game }: Props) {
   return (
-    <Card className="group overflow-hidden border bg-card hover:bg-accent/50 hover:shadow-md transition-all duration-200 relative p-0 gap-0">
-      <Link to={"/games/" + game.slug} className="block">
+    <Card className="group relative gap-0 overflow-hidden border bg-card p-0 transition-all duration-200 hover:bg-accent/50 hover:shadow-md">
+      <Link to={`/games/${game.slug}`} className="block">
         {game.background_image && (
-          <div className="relative overflow-hidden aspect-video">
+          <div className="relative aspect-video overflow-hidden">
             <img
               src={getCroppedImageUrl(game.background_image)}
               alt={game.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </div>
         )}
 
-        <div className="p-3 space-y-2">
+        <div className="space-y-2 p-3">
           <div className="flex items-center justify-between">
             <PlatformIconList
               platforms={game.parent_platforms.map((p) => p.platform)}
@@ -31,11 +31,11 @@ export default function GameCard({ game }: Props) {
             {game.metacritic && <CriticScore score={game.metacritic} />}
           </div>
 
-          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 leading-tight text-sm">
+          <h3 className="line-clamp-2 font-semibold text-foreground text-sm leading-tight transition-colors duration-200 group-hover:text-primary">
             {game.name}
           </h3>
         </div>
       </Link>
     </Card>
-  );
+  )
 }

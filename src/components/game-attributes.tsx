@@ -1,9 +1,9 @@
-import Game from "../entities/Game";
-import CriticScore from "./critic-score";
-import DefinitionItem from "./definition-item";
+import type { Game } from '../entities/Game'
+import CriticScore from './critic-score'
+import DefinitionItem from './definition-item'
 
 interface Props {
-  game: Game;
+  game: Game
 }
 
 const GameAttributes = ({ game }: Props) => {
@@ -28,7 +28,7 @@ const GameAttributes = ({ game }: Props) => {
         ))}
       </DefinitionItem>
     </dl>
-  );
-};
+  )
+}
 
-export default GameAttributes;
+export default GameAttributes

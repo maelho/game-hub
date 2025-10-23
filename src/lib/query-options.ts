@@ -1,19 +1,18 @@
-import { queryOptions, infiniteQueryOptions } from "@tanstack/react-query";
-import ms from "ms";
+import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query'
+import ms from 'ms'
+import type { Game, GameFilters } from '../entities/Game'
+import type { Genre } from '../entities/Genre'
+import type { Platform } from '../entities/Platform'
+import type { Screenshot } from '../entities/Screenshot'
+import type { Trailer } from '../entities/Trailer'
+import APIClient from '../services/api-client'
+import { queryKeys } from './query-keys'
 
-import APIClient from "../services/api-client";
-import type { Game, GameFilters } from "../entities/Game";
-import type { Genre } from "../entities/Genre";
-import type { Platform } from "../entities/Platform";
-
-import type { Screenshot } from "../entities/Screenshot";
-import type { Trailer } from "../entities/Trailer";
-import { queryKeys } from "./query-keys";
-
-const DEFAULT_STALE_TIME = ms("5m");
-const LONG_STALE_TIME = ms("24h");
-const DEFAULT_RETRY = 3;
-const DEFAULT_RETRY_DELAY = (attemptIndex: number) => Math.min(1000 * 2 ** attemptIndex, 30000);
+const DEFAULT_STALE_TIME = ms('5m')
+const LONG_STALE_TIME = ms('24h')
+const DEFAULT_RETRY = 3
+const DEFAULT_RETRY_DELAY = (attemptIndex: number) =>
+  Math.min(1000 * 2 ** attemptIndex, 30000)
 
 export const gameQueries = {
   all: () => queryKeys.games(),
@@ -22,7 +21,7 @@ export const gameQueries = {
     infiniteQueryOptions({
       queryKey: queryKeys.gamesInfinite(filters),
       queryFn: ({ pageParam = 1 }) => {
-        const apiClient = new APIClient<Game>("/games");
+        const apiClient = new APIClient<Game>('/games')
         return apiClient.getAll({
           params: {
             genres: filters?.genreId,
@@ -32,7 +31,7 @@ export const gameQueries = {
             page: pageParam,
             page_size: 20,
           },
-        });
+        })
       },
       initialPageParam: 1,
       getNextPageParam: (lastPage, allPages) =>
@@ -48,8 +47,8 @@ export const gameQueries = {
     queryOptions({
       queryKey: queryKeys.game(slug),
       queryFn: () => {
-        const apiClient = new APIClient<Game>("/games");
-        return apiClient.get(slug);
+        const apiClient = new APIClient<Game>('/games')
+        return apiClient.get(slug)
       },
       staleTime: DEFAULT_STALE_TIME,
       retry: DEFAULT_RETRY,
@@ -61,8 +60,10 @@ export const gameQueries = {
     queryOptions({
       queryKey: queryKeys.gameScreenshots(gameId),
       queryFn: () => {
-        const apiClient = new APIClient<Screenshot>(`/games/${gameId}/screenshots`);
-        return apiClient.getAll();
+        const apiClient = new APIClient<Screenshot>(
+          `/games/${gameId}/screenshots`,
+        )
+        return apiClient.getAll()
       },
       staleTime: LONG_STALE_TIME,
       retry: DEFAULT_RETRY,
@@ -74,15 +75,15 @@ export const gameQueries = {
     queryOptions({
       queryKey: queryKeys.gameTrailers(gameId),
       queryFn: () => {
-        const apiClient = new APIClient<Trailer>(`/games/${gameId}/movies`);
-        return apiClient.getAll();
+        const apiClient = new APIClient<Trailer>(`/games/${gameId}/movies`)
+        return apiClient.getAll()
       },
       staleTime: LONG_STALE_TIME,
       retry: DEFAULT_RETRY,
       retryDelay: DEFAULT_RETRY_DELAY,
       enabled: !!gameId && gameId > 0,
     }),
-};
+}
 
 export const genreQueries = {
   all: () => queryKeys.genres(),
@@ -91,8 +92,8 @@ export const genreQueries = {
     queryOptions({
       queryKey: queryKeys.genresList(),
       queryFn: () => {
-        const apiClient = new APIClient<Genre>("/genres");
-        return apiClient.getAll();
+        const apiClient = new APIClient<Genre>('/genres')
+        return apiClient.getAll()
       },
       staleTime: LONG_STALE_TIME,
       retry: DEFAULT_RETRY,
@@ -104,15 +105,15 @@ export const genreQueries = {
     queryOptions({
       queryKey: queryKeys.genre(id),
       queryFn: () => {
-        const apiClient = new APIClient<Genre>("/genres");
-        return apiClient.get(id);
+        const apiClient = new APIClient<Genre>('/genres')
+        return apiClient.get(id)
       },
       staleTime: LONG_STALE_TIME,
       retry: DEFAULT_RETRY,
       retryDelay: DEFAULT_RETRY_DELAY,
       enabled: !!id && id > 0,
     }),
-};
+}
 
 export const platformQueries = {
   all: () => queryKeys.platforms(),
@@ -121,8 +122,8 @@ export const platformQueries = {
     queryOptions({
       queryKey: queryKeys.platformsList(),
       queryFn: () => {
-        const apiClient = new APIClient<Platform>("/platforms");
-        return apiClient.getAll();
+        const apiClient = new APIClient<Platform>('/platforms')
+        return apiClient.getAll()
       },
       staleTime: LONG_STALE_TIME,
       retry: DEFAULT_RETRY,
@@ -134,12 +135,12 @@ export const platformQueries = {
     queryOptions({
       queryKey: queryKeys.platform(id),
       queryFn: () => {
-        const apiClient = new APIClient<Platform>("/platforms");
-        return apiClient.get(id);
+        const apiClient = new APIClient<Platform>('/platforms')
+        return apiClient.get(id)
       },
       staleTime: LONG_STALE_TIME,
       retry: DEFAULT_RETRY,
       retryDelay: DEFAULT_RETRY_DELAY,
       enabled: !!id && id > 0,
     }),
-};
+}

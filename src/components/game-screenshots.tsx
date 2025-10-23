@@ -1,28 +1,28 @@
-import useScreenshots from "../hooks/useScreenshots";
+import useScreenshots from '../hooks/useScreenshots'
 
 interface Props {
-  gameId: number;
+  gameId: number
 }
 
 const GameScreenshots = ({ gameId }: Props) => {
-  const { data, isLoading, error } = useScreenshots(gameId);
+  const { data, isLoading, error } = useScreenshots(gameId)
 
-  if (isLoading) return null;
+  if (isLoading) return null
 
-  if (error) throw error;
+  if (error) throw error
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+    <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
       {data?.results.map((file) => (
         <img
           key={file.id}
           src={file.image}
           alt="Game screenshot"
-          className="w-full h-auto rounded"
+          className="h-auto w-full rounded"
         />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default GameScreenshots;
+export default GameScreenshots
