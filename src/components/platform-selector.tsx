@@ -1,11 +1,6 @@
 import { ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import usePlatform from '../hooks/usePlatform'
 import usePlatforms from '../hooks/usePlatforms'
 import useGameQueryStore from '../store'
@@ -31,10 +26,7 @@ export default function PlatformSelector() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-48 border-border bg-card">
-        <DropdownMenuItem
-          onClick={() => setPlatformId(undefined)}
-          className="text-sm hover:bg-muted"
-        >
+        <DropdownMenuItem onClick={() => setPlatformId(undefined)} className="text-sm hover:bg-muted">
           All Platforms
         </DropdownMenuItem>
         {data?.results.map((platform) => (

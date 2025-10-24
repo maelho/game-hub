@@ -1,8 +1,4 @@
-import axios, {
-  type AxiosError,
-  type AxiosRequestConfig,
-  type AxiosResponse,
-} from 'axios'
+import axios, { type AxiosError, type AxiosRequestConfig, type AxiosResponse } from 'axios'
 
 export interface FetchResponse<T> {
   count: number
@@ -23,12 +19,7 @@ export class APIClientError extends Error {
   code?: string
   details?: Record<string, unknown>
 
-  constructor(
-    message: string,
-    status: number,
-    code?: string,
-    details?: Record<string, unknown>,
-  ) {
+  constructor(message: string, status: number, code?: string, details?: Record<string, unknown>) {
     super(message)
     this.name = 'APIClientError'
     this.status = status
@@ -37,8 +28,7 @@ export class APIClientError extends Error {
   }
 }
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || 'https://api.rawg.io/api'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.rawg.io/api'
 const API_KEY = import.meta.env.VITE_RAWG_API_KEY
 
 if (!API_KEY) {
@@ -61,31 +51,15 @@ const axiosInstance = axios.create({
 const handleAPIError = (error: AxiosError): never => {
   if (error.response) {
     const { status, data } = error.response
-    const message =
-      (data as Record<string, unknown>)?.message ||
-      error.message ||
-      'An error occurred'
+    const message = (data as Record<string, unknown>)?.message || error.message || 'An error occurred'
     const code = (data as Record<string, unknown>)?.code
     const details = (data as Record<string, unknown>)?.details
 
-    throw new APIClientError(
-      message as string,
-      status,
-      code as string,
-      details as Record<string, unknown>,
-    )
+    throw new APIClientError(message as string, status, code as string, details as Record<string, unknown>)
   } else if (error.request) {
-    throw new APIClientError(
-      'Network error: No response received',
-      0,
-      'NETWORK_ERROR',
-    )
+    throw new APIClientError('Network error: No response received', 0, 'NETWORK_ERROR')
   } else {
-    throw new APIClientError(
-      error.message || 'Request setup error',
-      0,
-      'REQUEST_ERROR',
-    )
+    throw new APIClientError(error.message || 'Request setup error', 0, 'REQUEST_ERROR')
   }
 }
 
@@ -156,23 +130,17 @@ class APIClient<T> {
 
   getAll = async (config?: AxiosRequestConfig): Promise<FetchResponse<T>> => {
     try {
-      const response = await axiosInstance.get<FetchResponse<T>>(
-        this.endpoint,
-        {
-          timeout: this.config.timeout,
-          ...config,
-        },
-      )
+      const response = await axiosInstance.get<FetchResponse<T>>(this.endpoint, {
+        timeout: this.config.timeout,
+        ...config,
+      })
       return response.data
     } catch (error) {
       return handleAPIError(error as AxiosError)
     }
   }
 
-  get = async (
-    id: number | string,
-    config?: AxiosRequestConfig,
-  ): Promise<T> => {
+  get = async (id: number | string, config?: AxiosRequestConfig): Promise<T> => {
     try {
       const response = await axiosInstance.get<T>(`${this.endpoint}/${id}`, {
         timeout: this.config.timeout,
@@ -196,50 +164,31 @@ class APIClient<T> {
     }
   }
 
-  put = async (
-    id: number | string,
-    data: Partial<T>,
-    config?: AxiosRequestConfig,
-  ): Promise<T> => {
+  put = async (id: number | string, data: Partial<T>, config?: AxiosRequestConfig): Promise<T> => {
     try {
-      const response = await axiosInstance.put<T>(
-        `${this.endpoint}/${id}`,
-        data,
-        {
-          timeout: this.config.timeout,
-          ...config,
-        },
-      )
+      const response = await axiosInstance.put<T>(`${this.endpoint}/${id}`, data, {
+        timeout: this.config.timeout,
+        ...config,
+      })
       return response.data
     } catch (error) {
       return handleAPIError(error as AxiosError)
     }
   }
 
-  patch = async (
-    id: number | string,
-    data: Partial<T>,
-    config?: AxiosRequestConfig,
-  ): Promise<T> => {
+  patch = async (id: number | string, data: Partial<T>, config?: AxiosRequestConfig): Promise<T> => {
     try {
-      const response = await axiosInstance.patch<T>(
-        `${this.endpoint}/${id}`,
-        data,
-        {
-          timeout: this.config.timeout,
-          ...config,
-        },
-      )
+      const response = await axiosInstance.patch<T>(`${this.endpoint}/${id}`, data, {
+        timeout: this.config.timeout,
+        ...config,
+      })
       return response.data
     } catch (error) {
       return handleAPIError(error as AxiosError)
     }
   }
 
-  delete = async (
-    id: number | string,
-    config?: AxiosRequestConfig,
-  ): Promise<void> => {
+  delete = async (id: number | string, config?: AxiosRequestConfig): Promise<void> => {
     try {
       await axiosInstance.delete(`${this.endpoint}/${id}`, {
         timeout: this.config.timeout,
@@ -256,17 +205,14 @@ class APIClient<T> {
     config?: AxiosRequestConfig,
   ): Promise<FetchResponse<T>> => {
     try {
-      const response = await axiosInstance.get<FetchResponse<T>>(
-        this.endpoint,
-        {
-          params: {
-            search: query,
-            ...params,
-          },
-          timeout: this.config.timeout,
-          ...config,
+      const response = await axiosInstance.get<FetchResponse<T>>(this.endpoint, {
+        params: {
+          search: query,
+          ...params,
         },
-      )
+        timeout: this.config.timeout,
+        ...config,
+      })
       return response.data
     } catch (error) {
       return handleAPIError(error as AxiosError)
@@ -280,18 +226,15 @@ class APIClient<T> {
     config?: AxiosRequestConfig,
   ): Promise<FetchResponse<T>> => {
     try {
-      const response = await axiosInstance.get<FetchResponse<T>>(
-        this.endpoint,
-        {
-          params: {
-            page,
-            page_size: pageSize,
-            ...params,
-          },
-          timeout: this.config.timeout,
-          ...config,
+      const response = await axiosInstance.get<FetchResponse<T>>(this.endpoint, {
+        params: {
+          page,
+          page_size: pageSize,
+          ...params,
         },
-      )
+        timeout: this.config.timeout,
+        ...config,
+      })
       return response.data
     } catch (error) {
       return handleAPIError(error as AxiosError)
@@ -299,9 +242,6 @@ class APIClient<T> {
   }
 }
 
-export const createAPIClient = <T>(
-  endpoint: string,
-  config?: APIClientConfig,
-) => new APIClient<T>(endpoint, config)
+export const createAPIClient = <T>(endpoint: string, config?: APIClientConfig) => new APIClient<T>(endpoint, config)
 
 export default APIClient

@@ -25,9 +25,7 @@ export default function GameCard({ game }: Props) {
 
         <div className="space-y-2 p-3">
           <div className="flex items-center justify-between">
-            <PlatformIconList
-              platforms={game.parent_platforms.map((p) => p.platform)}
-            />
+            <PlatformIconList platforms={game.parent_platforms.map((p) => p.platform)} />
             {game.metacritic && <CriticScore score={game.metacritic} />}
           </div>
 

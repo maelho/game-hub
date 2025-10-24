@@ -8,8 +8,7 @@ export const useGenre = (id?: number) => {
     enabled: !!id,
     select: (data: Genre) => ({
       ...data,
-      hasGamesCount:
-        typeof data.games_count === 'number' && data.games_count > 0,
+      hasGamesCount: typeof data.games_count === 'number' && data.games_count > 0,
       isPopular: data.games_count ? data.games_count > 1000 : false,
       hasImage: !!data.image_background,
     }),

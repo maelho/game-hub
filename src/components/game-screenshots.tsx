@@ -14,12 +14,7 @@ const GameScreenshots = ({ gameId }: Props) => {
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
       {data?.results.map((file) => (
-        <img
-          key={file.id}
-          src={file.image}
-          alt="Game screenshot"
-          className="h-auto w-full rounded"
-        />
+        <img key={file.id} src={file.image} alt="Game screenshot" className="h-auto w-full rounded" />
       ))}
     </div>
   )

@@ -11,9 +11,5 @@ export default function GameHeading() {
 
   const heading = `${platform?.name || ''} ${genre?.name || ''} Games`.trim()
 
-  return (
-    <h1 className="font-medium text-2xl text-foreground tracking-tight">
-      {heading}
-    </h1>
-  )
+  return <h1 className="font-medium text-2xl text-foreground tracking-tight">{heading}</h1>
 }

@@ -11,8 +11,7 @@ import { queryKeys } from './query-keys'
 const DEFAULT_STALE_TIME = ms('5m')
 const LONG_STALE_TIME = ms('24h')
 const DEFAULT_RETRY = 3
-const DEFAULT_RETRY_DELAY = (attemptIndex: number) =>
-  Math.min(1000 * 2 ** attemptIndex, 30000)
+const DEFAULT_RETRY_DELAY = (attemptIndex: number) => Math.min(1000 * 2 ** attemptIndex, 30000)
 
 export const gameQueries = {
   all: () => queryKeys.games(),
@@ -34,8 +33,7 @@ export const gameQueries = {
         })
       },
       initialPageParam: 1,
-      getNextPageParam: (lastPage, allPages) =>
-        lastPage.next ? allPages.length + 1 : undefined,
+      getNextPageParam: (lastPage, allPages) => (lastPage.next ? allPages.length + 1 : undefined),
       staleTime: DEFAULT_STALE_TIME,
       retry: DEFAULT_RETRY,
       retryDelay: DEFAULT_RETRY_DELAY,
@@ -60,9 +58,7 @@ export const gameQueries = {
     queryOptions({
       queryKey: queryKeys.gameScreenshots(gameId),
       queryFn: () => {
-        const apiClient = new APIClient<Screenshot>(
-          `/games/${gameId}/screenshots`,
-        )
+        const apiClient = new APIClient<Screenshot>(`/games/${gameId}/screenshots`)
         return apiClient.getAll()
       },
       staleTime: LONG_STALE_TIME,

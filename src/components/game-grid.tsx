@@ -20,20 +20,16 @@ export default function GameGrid() {
           <Search className="h-6 w-6 text-muted-foreground" />
         </div>
         <div className="space-y-2 text-center">
-          <h3 className="font-medium text-foreground text-lg">
-            Something went wrong
-          </h3>
+          <h3 className="font-medium text-foreground text-lg">Something went wrong</h3>
           <p className="max-w-md text-muted-foreground text-sm">
-            {error.message ||
-              "We couldn't load the games. Please try again later."}
+            {error.message || "We couldn't load the games. Please try again later."}
           </p>
         </div>
       </div>
     )
   }
 
-  const fetchedGamesCount =
-    data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0
+  const fetchedGamesCount = data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0
 
   const hasNoResults = !isLoading && fetchedGamesCount === 0
 
@@ -73,9 +69,7 @@ export default function GameGrid() {
       endMessage={
         !isLoading && fetchedGamesCount > 0 ? (
           <div className="py-8 text-center">
-            <p className="text-muted-foreground text-sm">
-              You've reached the end! Found {fetchedGamesCount} games.
-            </p>
+            <p className="text-muted-foreground text-sm">You've reached the end! Found {fetchedGamesCount} games.</p>
           </div>
         ) : null
       }
