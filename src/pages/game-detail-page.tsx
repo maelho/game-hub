@@ -37,9 +37,7 @@ const GameDetailPage = () => {
         </Button>
 
         <div className="space-y-4">
-          <h1 className="font-medium text-3xl text-foreground tracking-tight">
-            {game.name}
-          </h1>
+          <h1 className="font-medium text-3xl text-foreground tracking-tight">{game.name}</h1>
         </div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
@@ -47,9 +45,7 @@ const GameDetailPage = () => {
             <div className="space-y-4">
               <h2 className="font-medium text-foreground text-lg">About</h2>
               <div className="prose prose-sm dark:prose-invert max-w-none">
-                <ExpandableText>
-                  {game.description_raw || 'No description available.'}
-                </ExpandableText>
+                <ExpandableText>{game.description_raw || 'No description available.'}</ExpandableText>
               </div>
             </div>
 

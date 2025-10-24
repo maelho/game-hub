@@ -1,13 +1,6 @@
 import type { IconType } from 'react-icons'
 import { BsGlobeAsiaAustralia } from 'react-icons/bs'
-import {
-  FaAndroid,
-  FaApple,
-  FaLinux,
-  FaPlaystation,
-  FaWindows,
-  FaXbox,
-} from 'react-icons/fa'
+import { FaAndroid, FaApple, FaLinux, FaPlaystation, FaWindows, FaXbox } from 'react-icons/fa'
 import { MdPhoneIphone } from 'react-icons/md'
 import { SiNintendo } from 'react-icons/si'
 import type { Platform } from '../entities/Platform'
@@ -34,17 +27,10 @@ export default function PlatformIconList({ platforms }: Props) {
       {platforms.slice(0, 4).map((platform) => {
         const IconComponent = iconMap[platform.slug]
         return IconComponent ? (
-          <IconComponent
-            key={platform.id}
-            className="h-3.5 w-3.5 text-muted-foreground/60"
-          />
+          <IconComponent key={platform.id} className="h-3.5 w-3.5 text-muted-foreground/60" />
         ) : null
       })}
-      {platforms.length > 4 && (
-        <span className="ml-1 text-muted-foreground/40 text-xs">
-          +{platforms.length - 4}
-        </span>
-      )}
+      {platforms.length > 4 && <span className="ml-1 text-muted-foreground/40 text-xs">+{platforms.length - 4}</span>}
     </div>
   )
 }

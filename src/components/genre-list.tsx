@@ -13,9 +13,7 @@ export default function GenreList() {
   if (isLoading) {
     return (
       <div className="space-y-6">
-        <h2 className="font-medium text-muted-foreground text-sm uppercase tracking-wider">
-          Genres
-        </h2>
+        <h2 className="font-medium text-muted-foreground text-sm uppercase tracking-wider">Genres</h2>
         <div className="flex justify-center py-8">
           <div className="h-6 w-6 animate-spin rounded-full border-2 border-muted border-t-foreground"></div>
         </div>
@@ -28,9 +26,7 @@ export default function GenreList() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="font-medium text-muted-foreground text-sm uppercase tracking-wider">
-          Genres
-        </h2>
+        <h2 className="font-medium text-muted-foreground text-sm uppercase tracking-wider">Genres</h2>
         {hasActiveFilter && (
           <Button
             variant="ghost"
@@ -72,9 +68,7 @@ export default function GenreList() {
           >
             <div className="flex items-center justify-between">
               <span className="truncate">{genre.name}</span>
-              {genre.id === selectedGenreId && (
-                <Check className="h-3.5 w-3.5 flex-shrink-0" />
-              )}
+              {genre.id === selectedGenreId && <Check className="h-3.5 w-3.5 flex-shrink-0" />}
             </div>
           </button>
         ))}

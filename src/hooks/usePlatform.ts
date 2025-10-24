@@ -8,13 +8,10 @@ export const usePlatform = (id?: number) => {
     enabled: !!id,
     select: (data: Platform) => ({
       ...data,
-      hasGamesCount:
-        typeof data.games_count === 'number' && data.games_count > 0,
+      hasGamesCount: typeof data.games_count === 'number' && data.games_count > 0,
       isPopular: data.games_count ? data.games_count > 1000 : false,
       hasImage: !!data.image_background,
-      isActive: data.year_end
-        ? data.year_end >= new Date().getFullYear()
-        : true,
+      isActive: data.year_end ? data.year_end >= new Date().getFullYear() : true,
     }),
   })
 }
