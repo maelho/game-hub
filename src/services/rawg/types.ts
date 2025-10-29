@@ -1,8 +1,36 @@
-export type rawgApiResponse<T> = {
+export interface RawgApiResponse<T> {
   count: number
   next: string
   previous: string
   results: T[]
+}
+
+export type RawgPagedData<T> = Promise<RawgApiResponse<T>>
+
+export interface GamesQueryParams {
+  page?: number
+  page_size?: number
+  search?: string
+  search_precise?: boolean
+  search_exact?: boolean
+  parent_platforms?: string | number // e.g. "1,2,3"
+  platforms?: string // e.g. "4,5"
+  stores?: string // e.g. "5,6"
+  developers?: string // e.g. "1612,18893" or "valve-software,feral-interactive"
+  publishers?: string // e.g. "354,20987" or "electronic-arts,microsoft-studios"
+  genres?: string | number // e.g. "4,51" or "action,indie"
+  tags?: string // e.g. "31,7" or "singleplayer,multiplayer"
+  creators?: string // e.g. "78,28" or "cris-velasco,mike-morasky"
+  dates?: string // e.g. "2010-01-01,2018-12-31"
+  updated?: string // e.g. "2020-12-01,2020-12-31"
+  platforms_count?: number
+  metacritic?: string // e.g. "80,100"
+  exclude_collection?: number
+  exclude_additions?: boolean
+  exclude_parents?: boolean
+  exclude_game_series?: boolean
+  exclude_stores?: string // e.g. "5,6"
+  ordering?: string // e.g. "released" or "-rating"
 }
 
 export interface Game {

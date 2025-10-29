@@ -1,11 +1,16 @@
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query'
 import ms from 'ms'
-import type { Game, GameFilters } from '../entities/Game'
-import type { Genre } from '../entities/Genre'
-import type { Platform } from '../entities/Platform'
-import type { Screenshot } from '../entities/Screenshot'
-import type { Trailer } from '../entities/Trailer'
-import APIClient from '../services/api-client'
+import {
+  getGameScreenshots,
+  getGames,
+  getGameTrailers,
+  getGenres,
+  getGenresDetails,
+  getPlatformDetails,
+  getPlatforms,
+  getGamesDetails,
+} from '@/services/rawg/api-client'
+import type { GameFilters, Genre, Platform } from '@/services/rawg/types'
 import { queryKeys } from './query-keys'
 
 const DEFAULT_STALE_TIME = ms('5m')
@@ -19,9 +24,8 @@ export const gameQueries = {
   infinite: (filters?: GameFilters) =>
     infiniteQueryOptions({
       queryKey: queryKeys.gamesInfinite(filters),
-      queryFn: ({ pageParam = 1 }) => {
-        const apiClient = new APIClient<Game>('/games')
-        return apiClient.getAll({
+      queryFn: ({ pageParam = 1 }) =>
+        getGames({
           params: {
             genres: filters?.genreId,
             parent_platforms: filters?.platformId,
@@ -30,8 +34,7 @@ export const gameQueries = {
             page: pageParam,
             page_size: 20,
           },
-        })
-      },
+        }),
       initialPageParam: 1,
       getNextPageParam: (lastPage, allPages) => (lastPage.next ? allPages.length + 1 : undefined),
       staleTime: DEFAULT_STALE_TIME,
@@ -44,10 +47,7 @@ export const gameQueries = {
   detail: (slug: string | number) =>
     queryOptions({
       queryKey: queryKeys.game(slug),
-      queryFn: () => {
-        const apiClient = new APIClient<Game>('/games')
-        return apiClient.get(slug)
-      },
+      queryFn: () => getGamesDetails(slug),
       staleTime: DEFAULT_STALE_TIME,
       retry: DEFAULT_RETRY,
       retryDelay: DEFAULT_RETRY_DELAY,
@@ -57,10 +57,7 @@ export const gameQueries = {
   screenshots: (gameId: number) =>
     queryOptions({
       queryKey: queryKeys.gameScreenshots(gameId),
-      queryFn: () => {
-        const apiClient = new APIClient<Screenshot>(`/games/${gameId}/screenshots`)
-        return apiClient.getAll()
-      },
+      queryFn: () => getGameScreenshots(gameId),
       staleTime: LONG_STALE_TIME,
       retry: DEFAULT_RETRY,
       retryDelay: DEFAULT_RETRY_DELAY,
@@ -70,10 +67,7 @@ export const gameQueries = {
   trailers: (gameId: number) =>
     queryOptions({
       queryKey: queryKeys.gameTrailers(gameId),
-      queryFn: () => {
-        const apiClient = new APIClient<Trailer>(`/games/${gameId}/movies`)
-        return apiClient.getAll()
-      },
+      queryFn: () => getGameTrailers(gameId),
       staleTime: LONG_STALE_TIME,
       retry: DEFAULT_RETRY,
       retryDelay: DEFAULT_RETRY_DELAY,
@@ -87,10 +81,7 @@ export const genreQueries = {
   list: (initialData?: { count: number; results: Genre[] }) =>
     queryOptions({
       queryKey: queryKeys.genresList(),
-      queryFn: () => {
-        const apiClient = new APIClient<Genre>('/genres')
-        return apiClient.getAll()
-      },
+      queryFn: () => getGenres(),
       staleTime: LONG_STALE_TIME,
       retry: DEFAULT_RETRY,
       retryDelay: DEFAULT_RETRY_DELAY,
@@ -100,10 +91,7 @@ export const genreQueries = {
   detail: (id: number) =>
     queryOptions({
       queryKey: queryKeys.genre(id),
-      queryFn: () => {
-        const apiClient = new APIClient<Genre>('/genres')
-        return apiClient.get(id)
-      },
+      queryFn: () => getGenresDetails(id),
       staleTime: LONG_STALE_TIME,
       retry: DEFAULT_RETRY,
       retryDelay: DEFAULT_RETRY_DELAY,
@@ -117,10 +105,7 @@ export const platformQueries = {
   list: (initialData?: { count: number; results: Platform[] }) =>
     queryOptions({
       queryKey: queryKeys.platformsList(),
-      queryFn: () => {
-        const apiClient = new APIClient<Platform>('/platforms')
-        return apiClient.getAll()
-      },
+      queryFn: () => getPlatforms(),
       staleTime: LONG_STALE_TIME,
       retry: DEFAULT_RETRY,
       retryDelay: DEFAULT_RETRY_DELAY,
@@ -130,10 +115,7 @@ export const platformQueries = {
   detail: (id: number) =>
     queryOptions({
       queryKey: queryKeys.platform(id),
-      queryFn: () => {
-        const apiClient = new APIClient<Platform>('/platforms')
-        return apiClient.get(id)
-      },
+      queryFn: () => getPlatformDetails(id),
       staleTime: LONG_STALE_TIME,
       retry: DEFAULT_RETRY,
       retryDelay: DEFAULT_RETRY_DELAY,
