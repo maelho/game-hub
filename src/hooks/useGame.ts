@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import type { Game } from '../entities/Game'
 import { gameQueries } from '../lib/query-options'
+import type { Game } from '@/services/rawg/types'
 
 export const useGame = (slug: string | number) => {
   return useQuery({
