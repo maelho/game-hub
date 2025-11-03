@@ -5,8 +5,8 @@ import { platformQueries } from '../lib/query-options'
 export const usePlatforms = () => {
   return useQuery({
     ...platformQueries.list({
-      count: platforms.length,
-      results: platforms,
+      count: platforms.count,
+      results: platforms.results,
     }),
     select: (data) => ({
       ...data,

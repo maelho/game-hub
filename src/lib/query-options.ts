@@ -1,16 +1,16 @@
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query'
 import ms from 'ms'
+import type { GameFilters, Genre, Platform } from '@/services/rawg'
 import {
+  getGameDetails,
   getGameScreenshots,
   getGames,
   getGameTrailers,
+  getGenreDetails,
   getGenres,
-  getGenresDetails,
   getPlatformDetails,
   getPlatforms,
-  getGamesDetails,
-} from '@/services/rawg/api-client'
-import type { GameFilters, Genre, Platform } from '@/services/rawg/types'
+} from '@/services/rawg'
 import { queryKeys } from './query-keys'
 
 const DEFAULT_STALE_TIME = ms('5m')
@@ -47,7 +47,7 @@ export const gameQueries = {
   detail: (slug: string | number) =>
     queryOptions({
       queryKey: queryKeys.game(slug),
-      queryFn: () => getGamesDetails(slug),
+      queryFn: () => getGameDetails(slug),
       staleTime: DEFAULT_STALE_TIME,
       retry: DEFAULT_RETRY,
       retryDelay: DEFAULT_RETRY_DELAY,
@@ -91,7 +91,7 @@ export const genreQueries = {
   detail: (id: number) =>
     queryOptions({
       queryKey: queryKeys.genre(id),
-      queryFn: () => getGenresDetails(id),
+      queryFn: () => getGenreDetails(id),
       staleTime: LONG_STALE_TIME,
       retry: DEFAULT_RETRY,
       retryDelay: DEFAULT_RETRY_DELAY,

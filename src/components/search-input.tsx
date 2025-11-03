@@ -1,6 +1,7 @@
+import { useLocation, useNavigate } from '@tanstack/react-router'
 import { Search } from 'lucide-react'
 import { useRef } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+
 import { Input } from '@/components/ui/input'
 import useGameQueryStore from '../store'
 
@@ -17,7 +18,7 @@ export default function SearchInput() {
       setSearchText(searchValue)
 
       if (location.pathname !== '/') {
-        navigate('/')
+        navigate({ to: '/' })
       }
     }
   }

@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link } from '@tanstack/react-router'
+
 import ColorModeSwitch from './color-mode-switch'
 import SearchInput from './search-input'
 
 export default function NavBar() {
   return (
-    <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="mx-auto max-w-7xl px-6 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="group flex items-center space-x-3">

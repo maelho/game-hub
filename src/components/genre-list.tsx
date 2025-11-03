@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/a11y/useButtonType: <explanation> */
 import { Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import useGenres from '../hooks/useGenres'
