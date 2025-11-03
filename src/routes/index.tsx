@@ -1,10 +1,16 @@
+import { createFileRoute } from '@tanstack/react-router'
+
+import GenreList from '@/components/genre-list'
 import GameGrid from '../components/game-grid'
 import GameHeading from '../components/game-heading'
-import GenreList from '../components/genre-list'
 import PlatformSelector from '../components/platform-selector'
 import SortSelector from '../components/sort-selector'
 
-export default function HomePage() {
+export const Route = createFileRoute('/')({
+  component: GamesIndexComponent,
+})
+
+function GamesIndexComponent() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-8">
       <div className="flex flex-col gap-8 lg:flex-row">

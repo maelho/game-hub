@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from '@tanstack/react-router'
 import { Card } from '@/components/ui/card'
 import type { Game } from '../entities/Game'
 import getCroppedImageUrl from '../services/image-url'

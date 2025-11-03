@@ -32,13 +32,38 @@ async function fetchRawgData<T>(endpoint: string, params?: Record<string, string
   return await rawgApi.get(endpoint, { searchParams: params }).json<T>()
 }
 
-export const getGames = ({ params }: { params: GamesQueryParams }): RawgPagedData<Game> =>
-  fetchRawgData('games', params as Record<string, string | number | undefined>)
-export const getGamesDetails = (id: number | string): Promise<Game> => fetchRawgData(`games/${id}`)
-export const getGameScreenshots = (id: number | string): Promise<Screenshot> => fetchRawgData(`games/${id}/screenshots`)
-export const getGameTrailers = (id: number | string): Promise<Trailer> => fetchRawgData(`games/${id}/movies`)
-export const getGenres = (): RawgPagedData<Genre> => fetchRawgData('genres')
-export const getGenresDetails = (id: number | string): Promise<Genre> => fetchRawgData(`genres/${id}`)
-export const getPlatforms = (): RawgPagedData<Platform> => fetchRawgData('platforms')
-export const getParentPlatforms = (): RawgPagedData<Platform> => fetchRawgData('platforms/lists/parents')
-export const getPlatformDetails = (id: number | string): Promise<Platform> => fetchRawgData(`platforms/${id}`)
+export function getGames({ params }: { params: GamesQueryParams }): RawgPagedData<Game> {
+  return fetchRawgData('games', params as Record<string, string | number | undefined>)
+}
+
+export function getGameDetails(id: number | string): Promise<Game> {
+  return fetchRawgData(`games/${id}`)
+}
+
+export function getGameScreenshots(id: number | string): RawgPagedData<Screenshot> {
+  return fetchRawgData(`games/${id}/screenshots`)
+}
+
+export function getGameTrailers(id: number | string): RawgPagedData<Trailer> {
+  return fetchRawgData(`games/${id}/movies`)
+}
+
+export function getGenres(): RawgPagedData<Genre> {
+  return fetchRawgData('genres')
+}
+
+export function getGenreDetails(id: number | string): Promise<Genre> {
+  return fetchRawgData(`genres/${id}`)
+}
+
+export function getPlatforms(): RawgPagedData<Platform> {
+  return fetchRawgData('platforms')
+}
+
+export function getParentPlatforms(): RawgPagedData<Platform> {
+  return fetchRawgData('platforms/lists/parents')
+}
+
+export function getPlatformDetails(id: number | string): Promise<Platform> {
+  return fetchRawgData(`platforms/${id}`)
+}

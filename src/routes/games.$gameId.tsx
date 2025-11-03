@@ -1,5 +1,6 @@
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
+
 import { ArrowLeft } from 'lucide-react'
-import { useNavigate, useParams } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import ExpandableText from '../components/expandable-text'
 import GameAttributes from '../components/game-attributes'
@@ -7,10 +8,13 @@ import GameScreenshots from '../components/game-screenshots'
 import GameTrailer from '../components/game-trailer'
 import useGame from '../hooks/useGame'
 
-const GameDetailPage = () => {
-  const { slug } = useParams()
+export const Route = createFileRoute('/games/$gameId')({
+  component: GameDetailComponent,
+})
+
+function GameDetailComponent() {
   const navigate = useNavigate()
-  const { data: game, isLoading, error } = useGame(slug || '')
+  const { data: game, isLoading, error } = useGame(Route.useParams().gameId || '')
 
   if (isLoading) {
     return (
@@ -29,7 +33,7 @@ const GameDetailPage = () => {
       <div className="space-y-6">
         <Button
           variant="ghost"
-          onClick={() => navigate('/')}
+          onClick={() => navigate({ to: '/' })}
           className="flex items-center space-x-2 text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -61,5 +65,3 @@ const GameDetailPage = () => {
     </div>
   )
 }
-
-export default GameDetailPage
