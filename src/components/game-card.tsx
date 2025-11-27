@@ -29,11 +29,25 @@ export default function GameCard({ game }: Props) {
             {game.metacritic && <CriticScore score={game.metacritic} />}
           </div>
 
-          <h3 className="line-clamp-2 font-semibold text-foreground text-sm leading-tight transition-colors duration-200 group-hover:text-primary">
-            {game.name}
-          </h3>
-        </div>
-      </Link>
+export default function GameCard({ game }: Props) {
+  return (
+    <Card isPressable onPress={() => console.log('item pressed')} shadow="sm">
+      <CardBody className="overflow-visible p-0">
+        <Image
+          alt={game.name}
+          className="object-cover"
+          isZoomed
+          loading="lazy"
+          // shadow="sm"
+          radius="none"
+          src={getCroppedImageUrl(game.background_image)}
+          width="100%"
+        />
+      </CardBody>
+      <CardFooter className="flex justify-between">
+        <h3 className="text-left font-semibold text-lg">{game.name}</h3>
+        <GameCriticScore score={game.metacritic} />
+      </CardFooter>
     </Card>
   )
 }
