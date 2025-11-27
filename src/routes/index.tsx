@@ -7,10 +7,27 @@ import PlatformSelector from '../components/platform-selector'
 import SortSelector from '../components/sort-selector'
 
 export const Route = createFileRoute('/')({
-  component: GamesIndexComponent,
+  component: RootIndexComponent,
+  loader: ({ context: { queryClient } }) => queryClient.ensureInfiniteQueryData(gameQueryOptions()),
 })
 
-function GamesIndexComponent() {
+const animals = [
+  { key: 'cat', label: 'Cat' },
+  { key: 'dog', label: 'Dog' },
+  { key: 'elephant', label: 'Elephant' },
+  { key: 'lion', label: 'Lion' },
+  { key: 'tiger', label: 'Tiger' },
+  { key: 'giraffe', label: 'Giraffe' },
+  { key: 'dolphin', label: 'Dolphin' },
+  { key: 'penguin', label: 'Penguin' },
+  { key: 'zebra', label: 'Zebra' },
+  { key: 'shark', label: 'Shark' },
+  { key: 'whale', label: 'Whale' },
+  { key: 'otter', label: 'Otter' },
+  { key: 'crocodile', label: 'Crocodile' },
+]
+
+function Games() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-8">
       <div className="flex flex-col gap-8 lg:flex-row">
