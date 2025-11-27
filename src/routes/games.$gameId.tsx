@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router'
 
 import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { gameDetailsQueryOptions } from '@/lib/query-options'
 import ExpandableText from '../components/expandable-text'
 import GameAttributes from '../components/game-attributes'
 import GameScreenshots from '../components/game-screenshots'
@@ -10,6 +11,9 @@ import useGame from '../hooks/useGame'
 
 export const Route = createFileRoute('/games/$gameId')({
   component: GameDetailComponent,
+  loader: ({ context: { queryClient }, params: { gameId } }) => {
+    return queryClient.ensureQueryData(gameDetailsQueryOptions(gameId))
+  },
 })
 
 function GameDetailComponent() {
@@ -32,9 +36,9 @@ function GameDetailComponent() {
     <div className="mx-auto max-w-7xl px-6 py-6">
       <div className="space-y-6">
         <Button
-          variant="ghost"
-          onClick={() => navigate({ to: '/' })}
           className="flex items-center space-x-2 text-muted-foreground hover:text-foreground"
+          onClick={() => navigate({ to: '/' })}
+          variant="ghost"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>Back to Games</span>

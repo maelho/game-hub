@@ -1,5 +1,16 @@
 import ky from 'ky'
-import type { Game, GamesQueryParams, Genre, Platform, RawgPagedData, Screenshot, Trailer } from './types'
+import type {
+  GameDetailResponse,
+  GameLits,
+  GamesListResponse,
+  GamesQueryParams,
+  Genre,
+  GenreDetails,
+  PlatformDetailResponse,
+  PlatformsListResponse,
+  ScreenshotsListResponse,
+  TrailersListResponse,
+} from './types'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.rawg.io/api'
 const RAWG_API_KEY = import.meta.env.VITE_RAWG_API_KEY
@@ -28,27 +39,33 @@ const rawgApi = ky.create({
   },
 })
 
-async function fetchRawgData<T>(endpoint: string, params?: Record<string, string | number | undefined>): Promise<T> {
+// https://rawg.io/api/games/lists/main?discover=true&ordering=-relevance&page_size=40&page=1&key=c542e67aec3a4340908f9de9e86038af
+
+async function fetchRawgData<T>(endpoint: string, params?: GamesQueryParams): Promise<T> {
   return await rawgApi.get(endpoint, { searchParams: params }).json<T>()
 }
 
-export function getGames({ params }: { params: GamesQueryParams }): RawgPagedData<Game> {
-  return fetchRawgData('games', params as Record<string, string | number | undefined>)
+export function getGameLists({ list = 'main', params }: GameLits): Promise<GamesListResponse> {
+  return fetchRawgData(`games/lists/${list}`, params)
 }
 
-export function getGameDetails(id: number | string): Promise<Game> {
+export function getGames({ params }: { params: GamesQueryParams }): Promise<GamesListResponse> {
+  return fetchRawgData('games', params)
+}
+
+export function getGameDetails(id: number | string): Promise<GameDetailResponse> {
   return fetchRawgData(`games/${id}`)
 }
 
-export function getGameScreenshots(id: number | string): RawgPagedData<Screenshot> {
+export function getGameScreenshots(id: number | string): Promise<ScreenshotsListResponse> {
   return fetchRawgData(`games/${id}/screenshots`)
 }
 
-export function getGameTrailers(id: number | string): RawgPagedData<Trailer> {
+export function getGameTrailers(id: number | string): Promise<TrailersListResponse> {
   return fetchRawgData(`games/${id}/movies`)
 }
 
-export function getGenres(): RawgPagedData<Genre> {
+export function getGenres(): Promise<GenreDetails> {
   return fetchRawgData('genres')
 }
 
@@ -56,14 +73,14 @@ export function getGenreDetails(id: number | string): Promise<Genre> {
   return fetchRawgData(`genres/${id}`)
 }
 
-export function getPlatforms(): RawgPagedData<Platform> {
+export function getPlatforms(): Promise<PlatformDetailResponse> {
   return fetchRawgData('platforms')
 }
 
-export function getParentPlatforms(): RawgPagedData<Platform> {
+export function getParentPlatforms(): Promise<PlatformsListResponse> {
   return fetchRawgData('platforms/lists/parents')
 }
 
-export function getPlatformDetails(id: number | string): Promise<Platform> {
+export function getPlatformDetails(id: number | string): Promise<PlatformDetailResponse> {
   return fetchRawgData(`platforms/${id}`)
 }
