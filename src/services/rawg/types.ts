@@ -1,11 +1,27 @@
-export interface RawgApiResponse<T> {
+interface PaginatedResponse<T> {
   count: number
-  next: string
-  previous: string
+  next: string | null
+  previous: string | null
   results: T[]
 }
 
-export type RawgPagedData<T> = Promise<RawgApiResponse<T>>
+export type GameSortOption =
+  | 'name'
+  | '-name'
+  | 'released'
+  | '-released'
+  | 'added'
+  | '-added'
+  | 'created'
+  | '-created'
+  | 'updated'
+  | '-updated'
+  | 'rating'
+  | '-rating'
+  | 'metacritic'
+  | '-metacritic'
+  | 'relevance'
+  | '-relevance'
 
 export interface GamesQueryParams {
   page?: number
@@ -29,8 +45,17 @@ export interface GamesQueryParams {
   exclude_additions?: boolean
   exclude_parents?: boolean
   exclude_game_series?: boolean
+  discover?: boolean
   exclude_stores?: string // e.g. "5,6"
-  ordering?: string // e.g. "released" or "-rating"
+  ordering?: GameSortOption
+  [index: string]: string | boolean | number | undefined
+}
+
+export type ListNames = 'main' | 'greatest' | 'greatest' | 'popular'
+
+export interface GameLits {
+  list?: ListNames
+  params?: GamesQueryParams
 }
 
 export interface Game {
@@ -147,30 +172,6 @@ export interface GameDetails extends Game {
   }
 }
 
-export interface GameSearchParams {
-  search?: string
-  page?: number
-  page_size?: number
-  ordering?: string
-  genres?: string
-  platforms?: string
-  parent_platforms?: string
-  stores?: string
-  developers?: string
-  publishers?: string
-  dates?: string
-  added?: string
-  created?: string
-  updated?: string
-  released?: string
-  metacritic?: string
-  exclude_collection?: number
-  exclude_additions?: boolean
-  exclude_parents?: boolean
-  exclude_game_series?: boolean
-  tags?: string
-}
-
 export interface GameFilters {
   genreId?: number
   platformId?: number
@@ -187,22 +188,6 @@ export interface GameListItem extends Omit<Game, 'description_raw'> {
     preview: string
   }
 }
-
-export type GameSortOption =
-  | 'name'
-  | '-name'
-  | 'released'
-  | '-released'
-  | 'added'
-  | '-added'
-  | 'created'
-  | '-created'
-  | 'updated'
-  | '-updated'
-  | 'rating'
-  | '-rating'
-  | 'metacritic'
-  | '-metacritic'
 
 export interface Genre {
   id: number
@@ -291,3 +276,13 @@ export interface TrailerDetails extends Trailer {
   created_at?: string
   updated_at?: string
 }
+
+export type GamesListResponse = PaginatedResponse<Game>
+export type PlatformsListResponse = PaginatedResponse<Platform>
+export type GenresListResponse = PaginatedResponse<Genre>
+export type TrailersListResponse = PaginatedResponse<Trailer>
+export type ScreenshotsListResponse = PaginatedResponse<Screenshot>
+
+export type GameDetailResponse = Game
+export type PlatformDetailResponse = Platform
+export type GenreDetailResponse = Genre

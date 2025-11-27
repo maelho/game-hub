@@ -1,9 +1,8 @@
 import type { QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-
-import NavBar from '../components/nav-bar'
+import { NuqsAdapter } from 'nuqs/adapters/tanstack-router'
+// import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   component: Layout,
@@ -19,10 +18,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function Layout() {
   return (
     <>
-      <NavBar />
-      <Outlet />
-      <ReactQueryDevtools />
-      <TanStackRouterDevtools />
+      <NuqsAdapter>
+        <Outlet />
+      </NuqsAdapter>
+      <ReactQueryDevtools buttonPosition="top-right" />
+
+      {/* <TanStackRouterDevtools /> */}
     </>
   )
 }
