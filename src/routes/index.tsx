@@ -1,19 +1,24 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { createStandardSchemaV1 } from 'nuqs'
+import { Suspense } from 'react'
 import GameFilters from '@/components/game-filters'
-import Games from '@/components/games'
-import { gameQueryOptions } from '@/lib/query-options'
+import GamesContainer from '@/components/games-grid-container'
+import { gameFilterParams } from '@/hooks/useGameFilters'
 
 export const Route = createFileRoute('/')({
-  component: RootIndexComponent,
-  loader: ({ context: { queryClient } }) =>
-    queryClient.ensureInfiniteQueryData(gameQueryOptions({ ordering: '-relevance' })),
+  component: RootIndex,
+  validateSearch: createStandardSchemaV1(gameFilterParams, {
+    partialOutput: true,
+  }),
 })
 
-function RootIndexComponent() {
+function RootIndex() {
   return (
     <div className="container mx-auto px-6 py-6">
       <GameFilters />
-      <Games />
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <GamesContainer />
+      </Suspense>
     </div>
   )
 }

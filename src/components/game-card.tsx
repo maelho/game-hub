@@ -1,25 +1,32 @@
+import { Link } from '@tanstack/react-router'
 import type { Game } from '@/services/rawg'
 import { getCroppedImageUrl } from '@/services/rawg/utils'
 import MetacriticScore from './metacritic-score'
+import PlatformIconList from './platform-icon-list'
 import { Card, CardContent, CardFooter } from './ui/card'
 
-// import { Link } from '@tanstack/react-router'
-
-interface Props {
-  game: Game
-}
-
-export default function GameCard({ game }: Props) {
+export default function GameCard({ game }: { game: Game }) {
   return (
-    <Card className="inline-flex overflow-hidden pt-0">
-      <CardContent className="px-0">
-        <img alt={game.name} className="object-cover" src={getCroppedImageUrl(game.background_image)} />
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        {game.metacritic && <MetacriticScore score={game.metacritic} />}
+    <Link
+      className="inline-flex"
+      params={{
+        gameSlug: game.slug,
+      }}
+      to="/games/$gameSlug"
+    >
+      <Card className="overflow-hidden pt-0">
+        <CardContent className="px-0">
+          <img alt={game.name} className="object-cover" src={getCroppedImageUrl(game.background_image)} />
+        </CardContent>
+        <CardFooter className="flex flex-col items-start">
+          <div className="flex justify-between">
+            <PlatformIconList parent_platform={game.parent_platforms} />
+            {game.metacritic && <MetacriticScore score={game.metacritic} />}
+          </div>
 
-        <h3 className="text-left font-bold text-2xl">{game.name}</h3>
-      </CardFooter>
-    </Card>
+          <h3 className="text-left font-bold text-2xl">{game.name}</h3>
+        </CardFooter>
+      </Card>
+    </Link>
   )
 }

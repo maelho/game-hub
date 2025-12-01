@@ -5,6 +5,8 @@ interface PaginatedResponse<T> {
   results: T[]
 }
 
+export type PlataformNames = 'pc' | 'playstation' | 'xbox' | 'ios' | 'mac' | 'linux' | 'android' | 'nintendo' | 'web'
+
 export type GameSortOption =
   | 'name'
   | '-name'
@@ -47,7 +49,7 @@ export interface GamesQueryParams {
   exclude_game_series?: boolean
   discover?: boolean
   exclude_stores?: string // e.g. "5,6"
-  ordering?: GameSortOption
+  ordering?: GameSortOption | string
   [index: string]: string | boolean | number | undefined
 }
 
@@ -96,7 +98,7 @@ export interface Game {
     games_count: number
     image_background?: string
   }[]
-  parent_platforms: { platform: Platform }[]
+  parent_platforms: { platform: ParentPlatform }[]
   platforms?: {
     platform: Platform
     released_at?: string
@@ -222,30 +224,6 @@ export interface ParentPlatform {
   id: number
   name: string
   slug: string
-  platforms: Platform[]
-}
-
-export interface Platform {
-  id: number
-  name: string
-  slug: string
-  games_count?: number
-  image_background?: string
-  image?: string
-  year_start?: number
-  year_end?: number
-}
-
-export interface PlatformDetails extends Platform {
-  description?: string
-  games_count: number
-}
-
-export interface ParentPlatform {
-  id: number
-  name: string
-  slug: string
-  platforms: Platform[]
 }
 
 export interface Screenshot {
