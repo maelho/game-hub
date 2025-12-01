@@ -13,4 +13,15 @@ export const sortBy: SortOptions = [
 
 export * from './api-client.ts'
 
-export type { Game, GameFilters, GamesQueryParams, Genre, Platform, Screenshot, Trailer } from './types'
+export type {
+  Game,
+  GameFilters,
+  GamesListResponse,
+  GamesQueryParams,
+  Genre,
+  ParentPlatform,
+  PlataformNames,
+  Platform,
+  Screenshot,
+  Trailer,
+} from './types'

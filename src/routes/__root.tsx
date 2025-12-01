@@ -18,7 +18,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function Layout() {
   return (
     <>
-      <NuqsAdapter>
+      <NuqsAdapter
+        defaultOptions={{
+          clearOnDefault: false,
+        }}
+      >
         <Outlet />
       </NuqsAdapter>
       <ReactQueryDevtools buttonPosition="top-right" />
