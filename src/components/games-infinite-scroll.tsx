@@ -3,7 +3,7 @@ import { useEffect, useEffectEvent, useRef } from 'react'
 import { Spinner } from '@/components/ui/spinner'
 import { useGameFilters } from '@/hooks/useGameFilters'
 import { gameQueryOptions } from '@/lib/query-options'
-import { GamesGrid } from './games'
+import { GamesGrid } from './games-grid'
 
 export default function GamesInfiniteScroll() {
   const [filters] = useGameFilters()
@@ -31,7 +31,7 @@ export default function GamesInfiniteScroll() {
 
   return (
     <>
-      <GamesGrid data={data} />
+      <GamesGrid data={data.pages} />
 
       <div className="mb-10 flex justify-center" id="loader" ref={loaderRef}>
         <Spinner className="size-10" />

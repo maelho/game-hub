@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { createStandardSchemaV1 } from 'nuqs'
 import { Suspense } from 'react'
 import GameFilters from '@/components/game-filters'
-import GamesContainer from '@/components/games-grid-container'
+import GameInfiniteScroll from '@/components/games-infinite-scroll'
 import { gameFilterParams } from '@/hooks/useGameFilters'
 
 export const Route = createFileRoute('/')({
@@ -17,7 +17,7 @@ function RootIndex() {
     <div className="container mx-auto px-6 py-6">
       <GameFilters />
       <Suspense fallback={<h1>Loading...</h1>}>
-        <GamesContainer />
+        <GameInfiniteScroll />
       </Suspense>
     </div>
   )
