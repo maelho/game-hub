@@ -7,7 +7,6 @@ import type {
   Genre,
   GenreDetails,
   PlatformDetailResponse,
-  PlatformsListResponse,
   ScreenshotsListResponse,
   TrailersListResponse,
 } from './types'
@@ -75,10 +74,6 @@ export function getGenreDetails(id: number | string): Promise<Genre> {
 
 export function getPlatforms(): Promise<PlatformDetailResponse> {
   return fetchRawgData('platforms')
-}
-
-export function getParentPlatforms(): Promise<PlatformsListResponse> {
-  return fetchRawgData('platforms/lists/parents')
 }
 
 export function getPlatformDetails(id: number | string): Promise<PlatformDetailResponse> {
