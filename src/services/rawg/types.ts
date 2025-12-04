@@ -98,7 +98,7 @@ export interface Game {
     games_count: number
     image_background?: string
   }[]
-  parent_platforms: { platform: ParentPlatform }[]
+  parent_platforms: ParentPlatform[]
   platforms?: {
     platform: Platform
     released_at?: string
@@ -207,7 +207,7 @@ export interface GenreDetails extends Genre {
 export interface Platform {
   id: number
   name: string
-  slug: string
+  slug: PlataformNames
   games_count?: number
   image_background?: string
   image?: string
@@ -221,9 +221,7 @@ export interface PlatformDetails extends Platform {
 }
 
 export interface ParentPlatform {
-  id: number
-  name: string
-  slug: string
+  platform: Platform
 }
 
 export interface Screenshot {

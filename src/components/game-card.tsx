@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router'
 import type { Game } from '@/services/rawg'
 import { getCroppedImageUrl } from '@/services/rawg/utils'
 import MetacriticScore from './metacritic-score'
-import PlatformIconList from './platform-icon-list'
+import PlatformIconsList from './platform-icons-list'
 import { Card, CardContent, CardFooter } from './ui/card'
 
 export default function GameCard({ game }: { game: Game }) {
@@ -20,7 +20,7 @@ export default function GameCard({ game }: { game: Game }) {
         </CardContent>
         <CardFooter className="flex flex-col items-start">
           <div className="flex justify-between">
-            <PlatformIconList parent_platform={game.parent_platforms} />
+            <PlatformIconsList parent_platform={game.parent_platforms} />
             {game.metacritic && <MetacriticScore score={game.metacritic} />}
           </div>
 

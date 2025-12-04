@@ -1,14 +1,14 @@
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query'
 import {
   getGameDetails,
-  // getGameScreenshots,
-  getGames,
   // getGameTrailers,
   //  getGenreDetails,
   // getGenres,
   // getPlatformDetails,
   // getPlatforms,
   getGameLists,
+  // getGameScreenshots,
+  getGames,
 } from '@/services/rawg'
 import type { GamesQueryParams } from '@/services/rawg/types'
 
