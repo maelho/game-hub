@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
-import PlatformIconsList from '@/components/platform-icons-list'
+import parse from 'html-react-parser'
 import { gameDetailsQueryOptions } from '@/lib/query-options'
 
 export const Route = createFileRoute('/games/$gameSlug')({
@@ -16,11 +16,27 @@ function GameDetails() {
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-6">
-      <PlatformIconsList limit={game.parent_platforms.length} parent_platform={game.parent_platforms} />
+      <div className="grid grid-cols-3 gap-5">
+        <div className="col-span-1">
+          {/* <PlatformIconsList limit={game.parent_platforms.length} parent_platform={game.parent_platforms} /> */}
+          <h1 className="text-2xl">{game.name}</h1>
 
-      <h1>{game.name}</h1>
-      <p>{game.description_raw}</p>
-      <pre>{JSON.stringify(game, null, 2)}</pre>
+          <img alt={game.name} loading="lazy" src={game.background_image} />
+        </div>
+        <div className="col-span-2">
+          <h3>About</h3>
+
+          {game.description && (
+            <div className="font-light text-lg [&>p>strong]:font-bold [&>p]:mb-2">{parse(game.description)}</div>
+          )}
+        </div>
+      </div>
+
+      {/* Debug view — remove in production */}
+      <details className="rounded bg-neutral-900/40 p-4">
+        <summary className="cursor-pointer text-neutral-400 text-sm">Debug Game JSON</summary>
+        <pre className="mt-2 overflow-auto text-sm">{JSON.stringify(game, null, 2)}</pre>
+      </details>
     </div>
   )
 }
