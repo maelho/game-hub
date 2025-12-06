@@ -1,13 +1,21 @@
 import { useMemo } from 'react'
-import type { GamesListResponse } from '@/services/rawg'
+import type { Game, GamesListResponse } from '@/services/rawg'
 import GameCard from './game-card'
 
 export function GamesGrid({ data }: { data: GamesListResponse[] }) {
-  const games = useMemo(
-    // TODO: fix: Sometimes the rawg api returns duplicate games
-    () => data.flatMap((page) => [...new Map(page.results.map((game) => [game.id, game])).values()]),
-    [data],
-  )
+  const games = useMemo(() => {
+    const games = new Map<string, Game>()
+
+    for (const page of data) {
+      for (const game of page.results) {
+        if (!games.has(game.slug)) {
+          games.set(game.slug, game)
+        }
+      }
+    }
+
+    return Array.from(games.values())
+  }, [data])
 
   if (games.length === 0) {
     return <div className="flex min-h-[400px] items-center justify-center text-muted-foreground">No games found</div>
