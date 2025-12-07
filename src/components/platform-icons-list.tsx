@@ -17,7 +17,7 @@ export default function PlatformIconList({ parent_platform, limit = 4 }: Props) 
   return (
     <div className="mb-4 flex items-center gap-2">
       {visiblePlatforms.map((parent) => (
-        <PlatformIcon key={parent.platform.id} slug={parent.platform.slug} />
+        <PlatformIcon key={parent.slug} slug={parent.slug} />
       ))}
       {remainingCount > 0 && <span className="text-muted-foreground/40 text-xs">+{remainingCount}</span>}
     </div>

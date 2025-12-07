@@ -11,6 +11,13 @@ const platformIconLoaders: Record<PlataformNames, React.ComponentType<React.SVGA
   android: Icons.Android,
   nintendo: Icons.Nintendo,
   web: Icons.Web,
+
+  // TODO: add missing Icons
+  sega: Icons.Web,
+  atari: Icons.Web,
+  '3do': Icons.Web,
+  'commodore-amiga': Icons.Web,
+  'neo-geo': Icons.Web,
 }
 
 type PlatformIconProps = React.SVGAttributes<SVGSVGElement> & {
