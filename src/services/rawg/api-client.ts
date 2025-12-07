@@ -4,9 +4,7 @@ import type {
   GameLits,
   GamesListResponse,
   GamesQueryParams,
-  Genre,
-  GenreDetails,
-  PlatformDetailResponse,
+  PlatformsParentsResponse,
   ScreenshotsListResponse,
   TrailersListResponse,
 } from './types'
@@ -73,37 +71,25 @@ async function fetchRawgData<T>(endpoint: string, params?: GamesQueryParams | Re
 }
 
 export function getGameLists({ list = 'main', params }: GameLits): Promise<GamesListResponse> {
-  return fetchRawgData<GamesListResponse>(`games/lists/${list}`, params)
+  return fetchRawgData(`games/lists/${list}`, params)
 }
 
-export function getGames({ params }: { params?: GamesQueryParams }): Promise<GamesListResponse> {
-  return fetchRawgData<GamesListResponse>('games', params)
+export function getGames({ params }: { params: GamesQueryParams }): Promise<GamesListResponse> {
+  return fetchRawgData('games', params)
 }
 
-export function getGameDetails(id: number | string): Promise<GameDetailResponse> {
-  return fetchRawgData<GameDetailResponse>(`games/${id}`)
+export function getGameDetails(slug: string): Promise<GameDetailResponse> {
+  return fetchRawgData(`games/${slug}`)
 }
 
-export function getGameScreenshots(id: number | string): Promise<ScreenshotsListResponse> {
-  return fetchRawgData<ScreenshotsListResponse>(`games/${id}/screenshots`)
+export function getGameScreenshots(slug: string): Promise<ScreenshotsListResponse> {
+  return fetchRawgData(`games/${slug}/screenshots`)
 }
 
-export function getGameTrailers(id: number | string): Promise<TrailersListResponse> {
-  return fetchRawgData<TrailersListResponse>(`games/${id}/movies`)
+export function getGameTrailers(slug: string): Promise<TrailersListResponse> {
+  return fetchRawgData(`games/${slug}/movies`)
 }
 
-export function getGenres(): Promise<GenreDetails> {
-  return fetchRawgData<GenreDetails>('genres')
-}
-
-export function getGenreDetails(id: number | string): Promise<Genre> {
-  return fetchRawgData<Genre>(`genres/${id}`)
-}
-
-export function getPlatforms(): Promise<PlatformDetailResponse> {
-  return fetchRawgData<PlatformDetailResponse>('platforms')
-}
-
-export function getPlatformDetails(id: number | string): Promise<PlatformDetailResponse> {
-  return fetchRawgData<PlatformDetailResponse>(`platforms/${id}`)
+export function getPlatformsParents(): Promise<PlatformsParentsResponse> {
+  return fetchRawgData('platforms/lists/parents')
 }

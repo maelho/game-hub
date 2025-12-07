@@ -4,8 +4,21 @@ interface PaginatedResponse<T> {
   previous: string | null
   results: T[]
 }
-
-export type PlataformNames = 'pc' | 'playstation' | 'xbox' | 'ios' | 'mac' | 'linux' | 'android' | 'nintendo' | 'web'
+export type PlataformNames =
+  | 'pc'
+  | 'playstation'
+  | 'xbox'
+  | 'ios'
+  | 'mac'
+  | 'linux'
+  | 'android'
+  | 'nintendo'
+  | 'web'
+  | 'atari'
+  | 'sega'
+  | 'neo-geo'
+  | '3do'
+  | 'commodore-amiga'
 
 export type GameSortOption =
   | 'name'
@@ -192,23 +205,10 @@ export interface GameListItem extends Omit<Game, 'description_raw'> {
   }
 }
 
-export interface Genre {
-  id: number
-  name: string
-  slug: string
-  games_count: number
-  image_background?: string
-  description?: string
-}
-
-export interface GenreDetails extends Genre {
-  description: string
-}
-
 export interface Platform {
   id: number
   name: string
-  slug: PlataformNames
+  slug: string
   games_count?: number
   image_background?: string
   image?: string
@@ -216,13 +216,11 @@ export interface Platform {
   year_end?: number
 }
 
-export interface PlatformDetails extends Platform {
-  description?: string
-  games_count: number
-}
-
 export interface ParentPlatform {
-  platform: Platform
+  id: number
+  name: string
+  slug: PlataformNames
+  platforms: Platform
 }
 
 export interface Screenshot {
@@ -255,11 +253,8 @@ export interface TrailerDetails extends Trailer {
 }
 
 export type GamesListResponse = PaginatedResponse<Game>
-export type PlatformsListResponse = PaginatedResponse<Platform>
-export type GenresListResponse = PaginatedResponse<Genre>
+export type PlatformsParentsResponse = PaginatedResponse<ParentPlatform>
 export type TrailersListResponse = PaginatedResponse<Trailer>
 export type ScreenshotsListResponse = PaginatedResponse<Screenshot>
 
 export type GameDetailResponse = Game
-export type PlatformDetailResponse = Platform
-export type GenreDetailResponse = Genre
