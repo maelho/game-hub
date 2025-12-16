@@ -208,7 +208,7 @@ export interface GameListItem extends Omit<Game, 'description_raw'> {
 export interface Platform {
   id: number
   name: string
-  slug: string
+  slug: PlataformNames
   games_count?: number
   image_background?: string
   image?: string
@@ -220,7 +220,7 @@ export interface ParentPlatform {
   id: number
   name: string
   slug: PlataformNames
-  platforms: Platform
+  platform: Platform
 }
 
 export interface Screenshot {

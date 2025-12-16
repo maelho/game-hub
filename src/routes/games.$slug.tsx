@@ -1,21 +1,20 @@
-import { useSuspenseQueries, useSuspenseQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import parse from 'html-react-parser'
-import { gameDetailsQueryOptions, gameScreenshotsQueryOptions, gameTrailersQueryOptions } from '@/lib/query-options'
+import { Suspense } from 'react'
+import GameScreenshots from '@/components/game-screenshots'
+import { gameDetailsQueryOptions } from '@/lib/query-options'
 
-export const Route = createFileRoute('/games/$gameSlug')({
+export const Route = createFileRoute('/games/$slug')({
   component: GameDetails,
-  loader: ({ context: { queryClient }, params: { gameSlug } }) => {
-    return queryClient.ensureQueryData(gameDetailsQueryOptions(gameSlug))
+  loader: ({ context: { queryClient }, params: { slug } }) => {
+    return queryClient.ensureQueryData(gameDetailsQueryOptions(slug))
   },
 })
 
 function GameDetails() {
-  const slug = Route.useParams().gameSlug
+  const slug = Route.useParams().slug
   const { data: game } = useSuspenseQuery(gameDetailsQueryOptions(slug))
-  const [{ data: screenShots }, { data: trailers }] = useSuspenseQueries({
-    queries: [gameScreenshotsQueryOptions(slug), gameTrailersQueryOptions(slug)],
-  })
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-6">
@@ -25,10 +24,13 @@ function GameDetails() {
           <h1 className="text-2xl">{game.name}</h1>
 
           <img alt={game.name} loading="lazy" src={game.background_image} />
+
+          <Suspense fallback={'GameScreenshots...'}>
+            <GameScreenshots slug={slug} />
+          </Suspense>
         </div>
         <div className="col-span-2">
           <h3>About</h3>
-
           {game.description && (
             <div className="font-light text-lg [&>p>strong]:font-bold [&>p]:mb-2">{parse(game.description)}</div>
           )}
@@ -39,16 +41,6 @@ function GameDetails() {
       <details className="rounded bg-neutral-900/40 p-4">
         <summary className="cursor-pointer text-neutral-400 text-sm">Debug Game JSON</summary>
         <pre className="mt-2 overflow-auto text-sm">{JSON.stringify(game, null, 2)}</pre>
-      </details>
-
-      <details className="rounded bg-neutral-900/40 p-4">
-        <summary className="cursor-pointer text-neutral-400 text-sm">Debug Game JSON</summary>
-        <pre className="mt-2 overflow-auto text-sm">{JSON.stringify(screenShots, null, 2)}</pre>
-
-        <details className="rounded bg-neutral-900/40 p-4">
-          <summary className="cursor-pointer text-neutral-400 text-sm">Debug Game JSON</summary>
-          <pre className="mt-2 overflow-auto text-sm">{JSON.stringify(trailers, null, 2)}</pre>
-        </details>
       </details>
     </div>
   )

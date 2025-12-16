@@ -3,20 +3,25 @@ import type { Game } from '@/services/rawg'
 import { getCroppedImageUrl } from '@/services/rawg/utils'
 import MetacriticScore from './metacritic-score'
 import PlatformIconsList from './platform-icons-list'
+import { AspectRatio } from './ui/aspect-ratio'
 import { Card, CardContent, CardFooter } from './ui/card'
 
 export default function GameCard({ game }: { game: Game }) {
+  const imgSrc = getCroppedImageUrl(game.background_image)
+
   return (
     <Link
-      className="inline-flex"
+      className="block"
       params={{
-        gameSlug: game.slug,
+        slug: game.slug,
       }}
-      to="/games/$gameSlug"
+      to="/games/$slug"
     >
-      <Card className="overflow-hidden pt-0">
+      <Card className="gap-0 overflow-hidden pt-0">
         <CardContent className="px-0">
-          <img alt={game.name} className="object-cover" src={getCroppedImageUrl(game.background_image)} />
+          <AspectRatio ratio={16 / 9}>
+            {imgSrc && <img alt={game.name} className="w-full object-cover" src={imgSrc} />}
+          </AspectRatio>
         </CardContent>
         <CardFooter className="flex flex-col items-start">
           <div className="flex justify-between">
