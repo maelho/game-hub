@@ -1,24 +1,23 @@
 import type { GameSortOption } from './types'
 
-type SortOptions = { name: string; filter: GameSortOption }[]
+type SortOptions = { label: string; value: GameSortOption }[]
 
 export const sortBy: SortOptions = [
-  { name: 'Relevance', filter: '-relevance' },
-  { name: 'Date added', filter: '-created' },
-  { name: 'Name', filter: 'name' },
-  { name: 'Release date', filter: '-released' },
-  { name: 'Popularity', filter: '-added' },
-  { name: 'Average rating', filter: '-rating' },
+  { label: 'Relevance', value: '-relevance' },
+  { label: 'Date added', value: '-created' },
+  { label: 'Name', value: 'name' },
+  { label: 'Release date', value: '-released' },
+  { label: 'Popularity', value: '-added' },
+  { label: 'Average rating', value: '-rating' },
 ]
 
 export * from './api-client.ts'
 
 export type {
   Game,
-  GameFilters,
+  Gamevalues,
   GamesListResponse,
   GamesQueryParams,
-  Genre,
   ParentPlatform,
   PlataformNames,
   Platform,

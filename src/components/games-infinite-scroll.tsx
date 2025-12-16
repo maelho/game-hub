@@ -1,5 +1,6 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
-import { useEffect, useEffectEvent, useRef } from 'react'
+import { useEffect } from 'react'
+import { useInView } from 'react-intersection-observer'
 import { Spinner } from '@/components/ui/spinner'
 import { useGameFilters } from '@/hooks/useGameFilters'
 import { gameQueryOptions } from '@/lib/query-options'
@@ -7,34 +8,25 @@ import { GamesGrid } from './games-grid'
 
 export default function GamesInfiniteScroll() {
   const [filters] = useGameFilters()
-  const loaderRef = useRef(null)
 
-  const { data, isLoading, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery(gameQueryOptions({ ...filters }))
+  const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery(gameQueryOptions(filters))
 
-  const observerCallback = useEffectEvent<IntersectionObserverCallback>((entries) => {
-    if (entries[0].isIntersecting && !isLoading && hasNextPage) {
-      fetchNextPage()
-    }
+  const { ref: loaderRef, inView } = useInView({
+    rootMargin: '400px', // Trigger early before entering viewport
   })
 
   useEffect(() => {
-    const observer = new IntersectionObserver(observerCallback, {
-      root: null,
-      rootMargin: '0px 0px 400px 0px',
-      threshold: 0,
-    })
-
-    if (loaderRef.current) observer.observe(loaderRef.current)
-
-    return () => observer.disconnect()
-  }, [])
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage()
+    }
+  }, [inView, fetchNextPage, hasNextPage, isFetchingNextPage])
 
   return (
     <>
       <GamesGrid data={data.pages} />
 
-      <div className="mb-10 flex justify-center" id="loader" ref={loaderRef}>
-        <Spinner className="size-10" />
+      <div className="col-span-full flex min-h-20 w-full items-center justify-center py-4" ref={loaderRef}>
+        {isFetchingNextPage || (hasNextPage && inView) ? <Spinner className="size-10" /> : null}
       </div>
     </>
   )
