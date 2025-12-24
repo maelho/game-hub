@@ -9,7 +9,14 @@ import { GamesGrid } from './games-grid'
 export default function GamesInfiniteScroll() {
   const [filters] = useGameFilters()
 
-  const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery(gameQueryOptions(filters))
+  const queryFilters = {
+    ...filters,
+    search: filters.search ?? undefined,
+  }
+
+  const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery(
+    gameQueryOptions(queryFilters),
+  )
 
   const { ref: loaderRef, inView } = useInView({
     rootMargin: '400px', // Trigger early before entering viewport
