@@ -52,8 +52,8 @@ function LazyScreenshotImage({
     <div className={cn('relative aspect-video w-full overflow-hidden', className)}>
       <Skeleton
         className={cn(
-          'absolute inset-0 h-full w-full pointer-events-none transition-opacity duration-200',
-          loaded ? 'opacity-0 animate-none' : 'opacity-100',
+          'pointer-events-none absolute inset-0 h-full w-full transition-opacity duration-200',
+          loaded ? 'animate-none opacity-0' : 'opacity-100',
           skeletonClassName,
         )}
       />
@@ -79,7 +79,8 @@ export function GameScreenshotsSkeleton() {
       <Skeleton className="aspect-video w-full rounded-lg" />
       <div className="flex gap-2">
         {Array.from({ length: 6 }).map((_, index) => (
-          <Skeleton key={index} className="aspect-video w-1/6 rounded-md" />
+          // biome-ignore lint/suspicious/noArrayIndexKey: i don't need this
+          <Skeleton className="aspect-video w-1/6 rounded-md" key={index} />
         ))}
       </div>
     </section>
@@ -128,7 +129,7 @@ export default function GameScreenshots({ slug }: { slug: string }) {
 
   return (
     <section className="space-y-3">
-      <Carousel className="w-full group" setApi={setApi}>
+      <Carousel className="group w-full" setApi={setApi}>
         <CarouselContent>
           {screenshots.results.map((screenshot) => (
             <CarouselItem key={screenshot.id}>
@@ -136,8 +137,8 @@ export default function GameScreenshots({ slug }: { slug: string }) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-2 sm:left-4 bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0" />
-        <CarouselNext className="right-2 sm:right-4 bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0" />
+        <CarouselPrevious className="left-2 bg-background/80 opacity-0 backdrop-blur-sm transition-opacity disabled:opacity-0 group-hover:opacity-100 sm:left-4" />
+        <CarouselNext className="right-2 bg-background/80 opacity-0 backdrop-blur-sm transition-opacity disabled:opacity-0 group-hover:opacity-100 sm:right-4" />
       </Carousel>
       <Carousel className="w-full" opts={{ dragFree: true, containScroll: 'trimSnaps' }} setApi={setThumbApi}>
         <CarouselContent className="-ml-1.5 sm:-ml-2">
@@ -146,7 +147,7 @@ export default function GameScreenshots({ slug }: { slug: string }) {
 
             return (
               <CarouselItem
-                className="basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6 pl-1.5 sm:pl-2"
+                className="basis-1/3 pl-1.5 sm:basis-1/4 sm:pl-2 md:basis-1/5 lg:basis-1/6"
                 key={`thumb-${screenshot.id}`}
               >
                 <button

@@ -2,6 +2,7 @@ import type { QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { NuqsAdapter } from 'nuqs/adapters/tanstack-router'
+import Navbar from '@/components/navbar'
 // import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
@@ -23,7 +24,10 @@ function Layout() {
           clearOnDefault: false,
         }}
       >
-        <Outlet />
+        <Navbar />
+        <main>
+          <Outlet />
+        </main>
       </NuqsAdapter>
       <ReactQueryDevtools buttonPosition="top-right" />
 
