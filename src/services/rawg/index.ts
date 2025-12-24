@@ -15,7 +15,6 @@ export * from './api-client.ts'
 
 export type {
   Game,
-  Gamevalues,
   GamesListResponse,
   GamesQueryParams,
   ParentPlatform,

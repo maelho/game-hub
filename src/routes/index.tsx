@@ -19,7 +19,7 @@ function RootIndex() {
       <GameFilters />
       <Suspense
         fallback={
-          <div className="flex min-h-[400px] items-center justify-center">
+          <div className="flex min-h-100 items-center justify-center">
             <Spinner className="size-10" />
           </div>
         }

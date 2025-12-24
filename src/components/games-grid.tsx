@@ -15,7 +15,7 @@ function getColumns(width: number): number {
   return 1
 }
 
-function dedupeAndSplit(data: GamesListResponse[], columnsCounter: number = 4): Game[][] {
+function dedupeAndSplit(data: GamesListResponse[], columnsCounter: number): Game[][] {
   const columns: Game[][] = Array.from({ length: columnsCounter }, () => [])
   const seen = new Set<string>()
 

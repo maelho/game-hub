@@ -4,6 +4,7 @@ interface PaginatedResponse<T> {
   previous: string | null
   results: T[]
 }
+
 export type PlataformNames =
   | 'pc'
   | 'playstation'
@@ -71,6 +72,20 @@ export type ListNames = 'main' | 'greatest' | 'greatest' | 'popular'
 export interface GameLits {
   list?: ListNames
   params?: GamesQueryParams
+}
+
+export interface Genre {
+  id: number
+  name: string
+  slug: string
+  games_count: number
+  image_background: string
+  games: {
+    id: number
+    slug: string
+    name: string
+    added: number
+  }[]
 }
 
 export interface Game {
