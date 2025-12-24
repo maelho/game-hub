@@ -1,41 +1,37 @@
-import { Card } from "@/components/ui/card";
-import PlatformIconList from "./platform-icon-list";
-import CriticScore from "./critic-score";
-import getCroppedImageUrl from "../services/image-url";
-import { Link } from "react-router-dom";
-import Game from "../entities/Game";
+import { Link } from '@tanstack/react-router'
+import type { Game } from '@/services/rawg'
+import { getCroppedImageUrl } from '@/services/rawg/utils'
+import MetacriticScore from './metacritic-score'
+import PlatformIconsList from './platform-icons-list'
+import { AspectRatio } from './ui/aspect-ratio'
+import { Card, CardContent, CardFooter } from './ui/card'
 
-interface Props {
-  game: Game;
-}
+export default function GameCard({ game }: { game: Game }) {
+  const imgSrc = getCroppedImageUrl(game.background_image)
 
-export default function GameCard({ game }: Props) {
   return (
-    <Card className="group overflow-hidden border bg-card hover:bg-accent/50 hover:shadow-md transition-all duration-200 relative p-0 gap-0">
-      <Link to={"/games/" + game.slug} className="block">
-        {game.background_image && (
-          <div className="relative overflow-hidden aspect-video">
-            <img
-              src={getCroppedImageUrl(game.background_image)}
-              alt={game.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            />
+    <Link
+      className="block"
+      params={{
+        slug: game.slug,
+      }}
+      to="/games/$slug"
+    >
+      <Card className="gap-0 overflow-hidden pt-0 pb-0">
+        <CardContent className="px-0">
+          <AspectRatio ratio={16 / 9}>
+            {imgSrc && <img alt={game.name} className="w-full object-cover" src={imgSrc} />}
+          </AspectRatio>
+        </CardContent>
+        <CardFooter className="flex flex-col items-start p-4">
+          <div className="flex justify-between">
+            <PlatformIconsList parent_platform={game.parent_platforms} />
+            {game.metacritic && <MetacriticScore score={game.metacritic} />}
           </div>
-        )}
 
-        <div className="p-3 space-y-2">
-          <div className="flex items-center justify-between">
-            <PlatformIconList
-              platforms={game.parent_platforms.map((p) => p.platform)}
-            />
-            {game.metacritic && <CriticScore score={game.metacritic} />}
-          </div>
-
-          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 leading-tight text-sm">
-            {game.name}
-          </h3>
-        </div>
-      </Link>
-    </Card>
-  );
+          <h3 className="text-left font-bold text-2xl">{game.name}</h3>
+        </CardFooter>
+      </Card>
+    </Link>
+  )
 }

@@ -1,145 +1,102 @@
-import { queryOptions, infiniteQueryOptions } from "@tanstack/react-query";
-import ms from "ms";
+import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query'
+import {
+  getGameDetails,
+  getGameLists,
+  getGameScreenshots,
+  getGames,
+  getGameTrailers,
+  getPlatformsParents,
+} from '@/services/rawg'
+import type { GamesQueryParams } from '@/services/rawg/types'
 
-import APIClient from "../services/api-client";
-import type { Game, GameFilters } from "../entities/Game";
-import type { Genre } from "../entities/Genre";
-import type { Platform } from "../entities/Platform";
+const DEFAULT_PAGE_SIZE = 30
+const GAMES_STALE_TIME = 5 * 60 * 1000 // 5 minutes
+const GAME_DETAILS_STALE_TIME = 10 * 60 * 1000 // 10 minutes
 
-import type { Screenshot } from "../entities/Screenshot";
-import type { Trailer } from "../entities/Trailer";
-import { queryKeys } from "./query-keys";
+const gameQueryKeys = {
+  all: ['games'] as const,
+  infinite: (filters?: GamesQueryParams) => [...gameQueryKeys.all, 'infinite', filters || 'all'] as const,
+  detail: (id: string | number) => [...gameQueryKeys.all, 'detail', id] as const,
+  screenshots: (id: string | number) => [...gameQueryKeys.all, 'screenshots', id] as const,
+  trailers: (id: string | number) => [...gameQueryKeys.all, 'trailers', id] as const,
 
-const DEFAULT_STALE_TIME = ms("5m");
-const LONG_STALE_TIME = ms("24h");
-const DEFAULT_RETRY = 3;
-const DEFAULT_RETRY_DELAY = (attemptIndex: number) => Math.min(1000 * 2 ** attemptIndex, 30000);
+  platformsParents: () => [...gameQueryKeys.all, 'platforms'] as const,
+}
 
-export const gameQueries = {
-  all: () => queryKeys.games(),
+const defaultQueryOptions = {
+  staleTime: GAME_DETAILS_STALE_TIME,
+  gcTime: GAME_DETAILS_STALE_TIME,
+  refetchOnWindowFocus: false,
+  refetchOnMount: false,
+  retry: 2,
+}
 
-  infinite: (filters?: GameFilters) =>
-    infiniteQueryOptions({
-      queryKey: queryKeys.gamesInfinite(filters),
-      queryFn: ({ pageParam = 1 }) => {
-        const apiClient = new APIClient<Game>("/games");
-        return apiClient.getAll({
+export function gameQueryOptions(filters?: GamesQueryParams) {
+  return infiniteQueryOptions({
+    queryKey: gameQueryKeys.infinite(filters),
+    queryFn: ({ pageParam = 1 }) => {
+      const commonParams = {
+        parent_platforms: filters?.parent_platforms,
+        ordering: filters?.ordering,
+        page: pageParam,
+        page_size: DEFAULT_PAGE_SIZE,
+      }
+
+      if (filters?.search) {
+        return getGames({
           params: {
-            genres: filters?.genreId,
-            parent_platforms: filters?.platformId,
-            ordering: filters?.sortOrder,
-            search: filters?.searchText,
-            page: pageParam,
-            page_size: 20,
+            ...commonParams,
+            search: filters.search,
           },
-        });
-      },
-      initialPageParam: 1,
-      getNextPageParam: (lastPage, allPages) =>
-        lastPage.next ? allPages.length + 1 : undefined,
-      staleTime: DEFAULT_STALE_TIME,
-      retry: DEFAULT_RETRY,
-      retryDelay: DEFAULT_RETRY_DELAY,
-      refetchOnWindowFocus: false,
-      refetchOnMount: true,
-    }),
+        })
+      }
+      return getGameLists({
+        params: {
+          ...commonParams,
+          discover: true,
+        },
+      })
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, _allPages, lastPageParam) => (lastPage.next ? lastPageParam + 1 : undefined),
+    ...defaultQueryOptions,
 
-  detail: (slug: string | number) =>
-    queryOptions({
-      queryKey: queryKeys.game(slug),
-      queryFn: () => {
-        const apiClient = new APIClient<Game>("/games");
-        return apiClient.get(slug);
-      },
-      staleTime: DEFAULT_STALE_TIME,
-      retry: DEFAULT_RETRY,
-      retryDelay: DEFAULT_RETRY_DELAY,
-      enabled: !!slug,
-    }),
+    staleTime: GAMES_STALE_TIME,
+    gcTime: GAMES_STALE_TIME * 2, // 10 minutes
+  })
+}
 
-  screenshots: (gameId: number) =>
-    queryOptions({
-      queryKey: queryKeys.gameScreenshots(gameId),
-      queryFn: () => {
-        const apiClient = new APIClient<Screenshot>(`/games/${gameId}/screenshots`);
-        return apiClient.getAll();
-      },
-      staleTime: LONG_STALE_TIME,
-      retry: DEFAULT_RETRY,
-      retryDelay: DEFAULT_RETRY_DELAY,
-      enabled: !!gameId && gameId > 0,
-    }),
+export function gameDetailsQueryOptions(slug: string) {
+  return queryOptions({
+    queryKey: gameQueryKeys.detail(slug),
+    queryFn: () => getGameDetails(slug),
+    ...defaultQueryOptions,
+    enabled: Boolean(slug?.trim()),
+  })
+}
 
-  trailers: (gameId: number) =>
-    queryOptions({
-      queryKey: queryKeys.gameTrailers(gameId),
-      queryFn: () => {
-        const apiClient = new APIClient<Trailer>(`/games/${gameId}/movies`);
-        return apiClient.getAll();
-      },
-      staleTime: LONG_STALE_TIME,
-      retry: DEFAULT_RETRY,
-      retryDelay: DEFAULT_RETRY_DELAY,
-      enabled: !!gameId && gameId > 0,
-    }),
-};
+export function gameScreenshotsQueryOptions(slug: string) {
+  return queryOptions({
+    queryKey: gameQueryKeys.screenshots(slug),
+    queryFn: () => getGameScreenshots(slug),
+    ...defaultQueryOptions,
+    enabled: Boolean(slug?.trim()),
+  })
+}
 
-export const genreQueries = {
-  all: () => queryKeys.genres(),
+export function gameTrailersQueryOptions(slug: string) {
+  return queryOptions({
+    queryKey: gameQueryKeys.trailers(slug),
+    queryFn: () => getGameTrailers(slug),
+    ...defaultQueryOptions,
+    enabled: Boolean(slug?.trim()),
+  })
+}
 
-  list: (initialData?: { count: number; results: Genre[] }) =>
-    queryOptions({
-      queryKey: queryKeys.genresList(),
-      queryFn: () => {
-        const apiClient = new APIClient<Genre>("/genres");
-        return apiClient.getAll();
-      },
-      staleTime: LONG_STALE_TIME,
-      retry: DEFAULT_RETRY,
-      retryDelay: DEFAULT_RETRY_DELAY,
-      initialData,
-    }),
-
-  detail: (id: number) =>
-    queryOptions({
-      queryKey: queryKeys.genre(id),
-      queryFn: () => {
-        const apiClient = new APIClient<Genre>("/genres");
-        return apiClient.get(id);
-      },
-      staleTime: LONG_STALE_TIME,
-      retry: DEFAULT_RETRY,
-      retryDelay: DEFAULT_RETRY_DELAY,
-      enabled: !!id && id > 0,
-    }),
-};
-
-export const platformQueries = {
-  all: () => queryKeys.platforms(),
-
-  list: (initialData?: { count: number; results: Platform[] }) =>
-    queryOptions({
-      queryKey: queryKeys.platformsList(),
-      queryFn: () => {
-        const apiClient = new APIClient<Platform>("/platforms");
-        return apiClient.getAll();
-      },
-      staleTime: LONG_STALE_TIME,
-      retry: DEFAULT_RETRY,
-      retryDelay: DEFAULT_RETRY_DELAY,
-      initialData,
-    }),
-
-  detail: (id: number) =>
-    queryOptions({
-      queryKey: queryKeys.platform(id),
-      queryFn: () => {
-        const apiClient = new APIClient<Platform>("/platforms");
-        return apiClient.get(id);
-      },
-      staleTime: LONG_STALE_TIME,
-      retry: DEFAULT_RETRY,
-      retryDelay: DEFAULT_RETRY_DELAY,
-      enabled: !!id && id > 0,
-    }),
-};
+export function platformsQueryOptions() {
+  return queryOptions({
+    queryKey: gameQueryKeys.platformsParents(),
+    queryFn: () => getPlatformsParents(),
+    ...defaultQueryOptions,
+  })
+}
