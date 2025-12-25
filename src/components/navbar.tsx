@@ -69,7 +69,6 @@ export default function Navbar() {
           to="/"
         >
           <Gamepad2 className="size-7 text-primary" />
-          <span className="hidden sm:inline">GameHub</span>
         </Link>
         <div className="flex-1" />
         <form className="w-full max-w-xs sm:max-w-sm" onSubmit={handleSearch}>
