@@ -17,14 +17,14 @@ export default function GameCard({ game }: { game: Game }) {
       }}
       to="/games/$slug"
     >
-      <Card className="gap-0 overflow-hidden pt-0 pb-0">
+      <Card className="gap-0 overflow-hidden pt-0 pb-0 transition-[outline] hover:outline hover:outline-2 hover:outline-primary">
         <CardContent className="px-0">
           <AspectRatio ratio={16 / 9}>
             {imgSrc && <img alt={game.name} className="w-full object-cover" src={imgSrc} />}
           </AspectRatio>
         </CardContent>
         <CardFooter className="flex flex-col items-start p-4">
-          <div className="flex justify-between">
+          <div className="flex w-full items-center justify-between gap-3">
             <PlatformIconsList parent_platform={game.parent_platforms} />
             {game.metacritic && <MetacriticScore score={game.metacritic} />}
           </div>
