@@ -16,17 +16,6 @@ A modern game discovery application built with React, TypeScript, and the latest
 - **Linting/Formatting**: Biome
 - **Icons**: Lucide React
 
-## Features
-
-- 🎮 Browse and search games
-- 🌓 Dark/Light mode toggle
-- 📱 Responsive design
-- ♾️ Infinite scrolling
-- 🔍 Advanced filtering (genre, platform, sorting)
-- 📊 Game ratings and screenshots
-- 🎬 Game trailers
-- ⚡ Fast loading with optimized caching
-
 ## Getting Started
 
 ### Prerequisites
