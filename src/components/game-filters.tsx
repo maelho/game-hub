@@ -15,23 +15,25 @@ export default function GameFilters() {
 
   return (
     <div className="mb-6 flex gap-6">
-      <Field>
-        <FieldLabel htmlFor="order-by">Order by</FieldLabel>
-        <Select items={sortBy} onValueChange={(v) => setFilters({ ordering: v })} value={filter.ordering}>
-          <SelectTrigger id="order-by">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              {sortBy.map((by) => (
-                <SelectItem key={by.label} value={by.value}>
-                  {by.label}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </Field>
+      <div className="min-w-min">
+        <Field>
+          <FieldLabel htmlFor="order-by">Order by</FieldLabel>
+          <Select items={sortBy} onValueChange={(v) => setFilters({ ordering: v })} value={filter.ordering}>
+            <SelectTrigger id="order-by">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {sortBy.map((by) => (
+                  <SelectItem key={by.label} value={by.value}>
+                    {by.label}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </Field>
+      </div>
 
       {/*<Field>
         <FieldLabel htmlFor="platform">Platform</FieldLabel>
