@@ -5,14 +5,16 @@ A modern game discovery application built with React, TypeScript, and the latest
 ## Tech Stack
 
 - **Frontend Framework**: React 19 with TypeScript
-- **Build Tool**: Vite
-- **UI Components**: shadcn/ui
+- **Build Tool**: Vite 7
+- **UI Components**: Base UI + shadcn
 - **Styling**: Tailwind CSS v4
-- **Data Fetching**: TanStack Query (React Query)
-- **Routing**: React Router v7
-- **State Management**: Zustand
+- **Data Fetching**: TanStack Query
+- **Routing**: TanStack Router
+- **URL State Management**: nuqs
+- **HTTP Client**: ky
 - **Package Manager**: Bun
-- **Icons**: Lucide React & React Icons
+- **Linting/Formatting**: Biome
+- **Icons**: Lucide React
 
 ## Features
 
@@ -34,23 +36,27 @@ A modern game discovery application built with React, TypeScript, and the latest
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd game-hub
 ```
 
-2. Install dependencies:
+1. Install dependencies:
+
 ```bash
 bun install
 ```
 
-3. Create a `.env.local` file and add your RAWG API key:
+1. Create a `.env.local` file and add your RAWG API key:
+
 ```env
 VITE_API_KEY=your_rawg_api_key_here
 VITE_API_BASE_URL=https://api.rawg.io/api
 ```
 
-4. Start the development server:
+1. Start the development server:
+
 ```bash
 bun run dev
 ```
