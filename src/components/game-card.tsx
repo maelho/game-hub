@@ -17,7 +17,7 @@ export default function GameCard({ game }: { game: Game }) {
       }}
       to="/games/$slug"
     >
-      <Card className="gap-0 overflow-hidden pt-0 pb-0 transition-[outline] hover:outline hover:outline-2 hover:outline-primary">
+      <Card className="gap-0 overflow-hidden pt-0 pb-0 transition-[outline] hover:outline-2 hover:outline-primary">
         <CardContent className="px-0">
           <AspectRatio ratio={16 / 9}>
             {imgSrc && <img alt={game.name} className="w-full object-cover" src={imgSrc} />}

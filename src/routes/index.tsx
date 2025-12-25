@@ -33,9 +33,7 @@ function RootIndex() {
             </Link>
           </div>
         </div>
-      ) : (
-        <h1 className="mb-6 font-bold text-2xl sm:text-3xl">All Games</h1>
-      )}
+      ) : null}
 
       <GameFilters />
       <Suspense
