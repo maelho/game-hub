@@ -7,6 +7,10 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   base: '/game-hub/',
+  preview: {
+    port: 4173,
+  },
+  appType: 'spa',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
