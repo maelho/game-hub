@@ -1,7 +1,3 @@
-# Game Hub
-
-A modern game discovery application built with React, TypeScript, and the latest UI technologies.
-
 ## Tech Stack
 
 - **Frontend Framework**: React 19 with TypeScript
