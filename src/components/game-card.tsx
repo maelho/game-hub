@@ -6,7 +6,12 @@ import PlatformIconsList from './platform-icons-list'
 import { AspectRatio } from './ui/aspect-ratio'
 import { Card, CardContent, CardFooter } from './ui/card'
 
-export default function GameCard({ game }: { game: Game }) {
+interface GameCardProps {
+  game: Game
+  priority?: boolean
+}
+
+export default function GameCard({ game, priority = false }: GameCardProps) {
   const imgSrc = getCroppedImageUrl(game.background_image)
 
   return (
@@ -20,7 +25,16 @@ export default function GameCard({ game }: { game: Game }) {
       <Card className="gap-0 overflow-hidden pt-0 pb-0 transition-[outline] hover:outline-2 hover:outline-primary">
         <CardContent className="px-0">
           <AspectRatio ratio={16 / 9}>
-            {imgSrc && <img alt={game.name} className="w-full object-cover" src={imgSrc} />}
+            {imgSrc && (
+              <img
+                alt={game.name}
+                className="w-full object-cover"
+                decoding={priority ? 'sync' : 'async'}
+                fetchPriority={priority ? 'high' : 'auto'}
+                loading={priority ? 'eager' : 'lazy'}
+                src={imgSrc}
+              />
+            )}
           </AspectRatio>
         </CardContent>
         <CardFooter className="flex flex-col items-start p-4">
