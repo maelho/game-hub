@@ -1,6 +1,7 @@
 import type { QueryClient } from '@tanstack/react-query'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { NuqsAdapter } from 'nuqs/adapters/tanstack-router'
+import Footer from '@/components/footer'
 import Navbar from '@/components/navbar'
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
@@ -21,10 +22,13 @@ function Layout() {
         clearOnDefault: false,
       }}
     >
-      <Navbar />
-      <main>
-        <Outlet />
-      </main>
+      <div className="flex min-h-screen flex-col">
+        <Navbar />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
     </NuqsAdapter>
   )
 }
