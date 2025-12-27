@@ -11,6 +11,7 @@ export default function GamesInfiniteScroll() {
 
   const queryFilters = {
     ...filters,
+    parent_platforms: filters.parent_platforms ?? undefined,
     search: filters.search ?? undefined,
   }
 
