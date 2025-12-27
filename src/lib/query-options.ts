@@ -12,6 +12,7 @@ import type { GamesQueryParams } from '@/services/rawg/types'
 const DEFAULT_PAGE_SIZE = 30
 const GAMES_STALE_TIME = 5 * 60 * 1000 // 5 minutes
 const GAME_DETAILS_STALE_TIME = 10 * 60 * 1000 // 10 minutes
+const PLATFORMS_STALE_TIME = 24 * 60 * 60 * 1000 // 24 hours
 
 const gameQueryKeys = {
   all: ['games'] as const,
@@ -24,8 +25,6 @@ const gameQueryKeys = {
 }
 
 const defaultQueryOptions = {
-  staleTime: GAME_DETAILS_STALE_TIME,
-  gcTime: GAME_DETAILS_STALE_TIME,
   refetchOnWindowFocus: false,
   refetchOnMount: false,
   retry: 2,
@@ -71,6 +70,8 @@ export function gameDetailsQueryOptions(slug: string) {
     queryKey: gameQueryKeys.detail(slug),
     queryFn: () => getGameDetails(slug),
     ...defaultQueryOptions,
+    staleTime: GAME_DETAILS_STALE_TIME,
+    gcTime: GAME_DETAILS_STALE_TIME,
     enabled: Boolean(slug?.trim()),
   })
 }
@@ -98,5 +99,7 @@ export function platformsQueryOptions() {
     queryKey: gameQueryKeys.platformsParents(),
     queryFn: () => getPlatformsParents(),
     ...defaultQueryOptions,
+    staleTime: PLATFORMS_STALE_TIME,
+    gcTime: PLATFORMS_STALE_TIME,
   })
 }
