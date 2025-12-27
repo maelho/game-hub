@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
-import { ExternalLink } from 'lucide-react'
+import { ExternalLink, Database } from 'lucide-react'
 import { memo, Suspense } from 'react'
 import GameDescription from '@/components/game-description'
 import GameScreenshots, { GameScreenshotsSkeleton } from '@/components/game-screenshots'
@@ -118,6 +118,19 @@ const GameDetailsInfo = memo(({ game }: { game: Game }) => {
             </a>
           </div>
         )}
+
+        <div className="border-t pt-4">
+          <a
+            className="inline-flex items-center gap-1.5 text-muted-foreground text-sm hover:text-primary"
+            href={`https://rawg.io/games/${game.slug}`}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Database className="h-4 w-4" />
+            View on RAWG
+            <ExternalLink className="h-3 w-3" />
+          </a>
+        </div>
       </div>
     </div>
   )
