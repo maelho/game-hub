@@ -3,9 +3,9 @@ import { X } from 'lucide-react'
 import { createStandardSchemaV1 } from 'nuqs'
 import { Suspense } from 'react'
 import GameFilters from '@/components/game-filters'
+import GamesGridSkeleton from '@/components/games-grid-skeleton'
 import GameInfiniteScroll from '@/components/games-infinite-scroll'
 import { Button } from '@/components/ui/button'
-import { Spinner } from '@/components/ui/spinner'
 import { gameFilterParams, useGameFilters } from '@/hooks/useGameFilters'
 
 export const Route = createFileRoute('/')({
@@ -36,13 +36,7 @@ function RootIndex() {
       ) : null}
 
       <GameFilters />
-      <Suspense
-        fallback={
-          <div className="flex min-h-100 items-center justify-center">
-            <Spinner className="size-10" />
-          </div>
-        }
-      >
+      <Suspense fallback={<GamesGridSkeleton />}>
         <GameInfiniteScroll />
       </Suspense>
     </div>

@@ -8,6 +8,9 @@ const breakpoints = {
   lg: 1024,
 } as const
 
+// Number of priority images per column (above-the-fold optimization)
+const PRIORITY_ROWS = 2
+
 function getColumns(width: number): number {
   if (width >= breakpoints.lg) return 4
   if (width >= breakpoints.md) return 3
@@ -57,7 +60,7 @@ export function GamesGrid({ data }: { data: GamesListResponse[] }) {
         cancelAnimationFrame(rafId)
       }
 
-      // smooths it: Syncs with the browser’s render cycle and reduce re-renders
+      // smooths it: Syncs with the browser's render cycle and reduce re-renders
       rafId = requestAnimationFrame(() => {
         const entry = entries[0]
         if (!entry) return
@@ -86,11 +89,11 @@ export function GamesGrid({ data }: { data: GamesListResponse[] }) {
 
   return (
     <div className="flex gap-6" ref={ref}>
-      {games.map((columns, index) => (
+      {games.map((columns, columnIndex) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: i don't need this
-        <div className="flex flex-1 flex-col gap-6" key={index}>
-          {columns.map((game) => (
-            <MemoizedGameCard game={game} key={`${game.slug}${index}`} />
+        <div className="flex flex-1 flex-col gap-6" key={columnIndex}>
+          {columns.map((game, rowIndex) => (
+            <MemoizedGameCard game={game} key={`${game.slug}${columnIndex}`} priority={rowIndex < PRIORITY_ROWS} />
           ))}
         </div>
       ))}
