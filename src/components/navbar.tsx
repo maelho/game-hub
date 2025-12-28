@@ -44,7 +44,7 @@ export default function Navbar() {
   const handleSearch = (e: FormEvent) => {
     e.preventDefault()
 
-    const trimmedSearch = searchValue.trim()
+    const trimmedSearch = searchValue?.trim()
     inputRef.current?.blur()
 
     navigate({
@@ -81,7 +81,7 @@ export default function Navbar() {
               placeholder="Search games... (press /)"
               ref={inputRef}
               type="search"
-              value={searchValue}
+              value={searchValue ?? ''}
             />
           </div>
         </form>
