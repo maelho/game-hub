@@ -1,77 +1,36 @@
-import type { ParentPlatform, PlataformNames } from '@/services/rawg/types'
+import type { ParentPlatform, PlataformNames } from '@/services/rawg'
 
-/**
- * Full platform names for display in detailed views
- */
-export const platformNames: Record<PlataformNames, string> = {
-  pc: 'PC',
-  playstation: 'PlayStation',
-  xbox: 'Xbox',
-  nintendo: 'Nintendo',
-  mac: 'Mac',
-  linux: 'Linux',
-  ios: 'iOS',
-  android: 'Android',
-  web: 'Web',
-  sega: 'Sega',
-  atari: 'Atari',
-  '3do': '3DO',
-  'commodore-amiga': 'Commodore Amiga',
-  'neo-geo': 'Neo Geo',
-}
-
-/**
- * Short platform codes for compact display (cards, lists)
- */
-export const platformShortCodes: Record<PlataformNames, string> = {
-  pc: 'PC',
-  playstation: 'PS',
-  xbox: 'XB',
-  nintendo: 'NS',
-  mac: 'MAC',
-  linux: 'LNX',
-  ios: 'iOS',
-  android: 'AND',
-  web: 'WEB',
-  sega: 'SEG',
-  atari: 'ATR',
-  '3do': '3DO',
-  'commodore-amiga': 'AMI',
-  'neo-geo': 'NGO',
+const platforms: Record<PlataformNames, { full: string; short: string }> = {
+  pc: { full: 'PC', short: 'PC' },
+  playstation: { full: 'PlayStation', short: 'PS' },
+  xbox: { full: 'Xbox', short: 'XB' },
+  nintendo: { full: 'Nintendo', short: 'NS' },
+  mac: { full: 'Mac', short: 'MAC' },
+  linux: { full: 'Linux', short: 'LNX' },
+  ios: { full: 'iOS', short: 'iOS' },
+  android: { full: 'Android', short: 'AND' },
+  web: { full: 'Web', short: 'WEB' },
+  sega: { full: 'Sega', short: 'SEG' },
+  atari: { full: 'Atari', short: 'ATR' },
+  '3do': { full: '3DO', short: '3DO' },
+  'commodore-amiga': { full: 'Commodore Amiga', short: 'AMI' },
+  'neo-geo': { full: 'Neo Geo', short: 'NGO' },
 }
 
 type FormatStyle = 'full' | 'short'
 
-/**
- * Formats a list of parent platforms into a display string
- * @param platforms - Array of parent platform objects
- * @param style - 'full' for complete names, 'short' for abbreviated codes
- * @param separator - String to join platform names (default: ' / ')
- * @param limit - Maximum number of platforms to show (default: all)
- */
 export function formatPlatforms(
-  platforms: ParentPlatform[] | undefined,
+  platformsList: ParentPlatform[] | undefined,
   style: FormatStyle = 'full',
   separator = ' / ',
   limit?: number,
 ): string | null {
-  if (!platforms || platforms.length === 0) return null
+  if (!platformsList?.length) return null
 
-  const mapping = style === 'full' ? platformNames : platformShortCodes
-  const platformsToFormat = limit ? platforms.slice(0, limit) : platforms
-
-  return platformsToFormat
-    .map((p) => {
-      const slug = p.platform.slug
-      return mapping[slug] ?? (style === 'short' ? slug.slice(0, 3).toUpperCase() : p.platform.name)
-    })
-    .join(separator)
+  const list = limit ? platformsList.slice(0, limit) : platformsList
+  return list.map((p) => platforms[p.platform.slug][style]).join(separator)
 }
 
-/**
- * Get a single platform's display name
- */
 export function getPlatformName(slug: PlataformNames, style: FormatStyle = 'full'): string {
-  const mapping = style === 'full' ? platformNames : platformShortCodes
-  return mapping[slug] ?? slug
+  return platforms[slug]?.[style] ?? slug
 }
