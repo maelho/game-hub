@@ -2,10 +2,8 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { X } from 'lucide-react'
 import { createStandardSchemaV1 } from 'nuqs'
 import { Suspense } from 'react'
-import GameFilters from '@/components/game-filters'
-import GamesGridSkeleton from '@/components/games-grid-skeleton'
-import GameInfiniteScroll from '@/components/games-infinite-scroll'
-import { Button } from '@/components/ui/button'
+import { GameFilters } from '@/components/filters'
+import { GamesGridSkeleton, GamesInfiniteScroll } from '@/components/games-list'
 import { gameFilterParams, useGameFilters } from '@/hooks/useGameFilters'
 
 export const Route = createFileRoute('/')({
@@ -20,16 +18,23 @@ function RootIndex() {
   const searchQuery = filters.search
 
   return (
-    <div className="container mx-auto px-6 py-6">
+    <div className="container mx-auto px-4 py-6 sm:px-6">
       {searchQuery ? (
         <div className="mb-6">
           <div className="flex items-center gap-3">
-            <h1 className="font-bold text-2xl sm:text-3xl">Search results for "{searchQuery}"</h1>
+            <h1 className="text-industrial-text text-sm">
+              <span className="text-industrial-text-tertiary">SEARCH:</span>{' '}
+              <span className="text-industrial-accent">"{searchQuery}"</span>
+            </h1>
             <Link to="/">
-              <Button className="text-muted-foreground hover:text-foreground" size="sm" variant="ghost">
-                <X className="mr-1 size-4" />
-                Clear
-              </Button>
+              <button
+                className="flex items-center gap-1 border border-industrial-border px-2 py-1 text-industrial-text-secondary text-xs transition-all duration-150 hover:border-industrial-accent hover:text-industrial-accent"
+                style={{ borderRadius: 'var(--radius-sm)' }}
+                type="button"
+              >
+                <X className="size-3" />
+                clear
+              </button>
             </Link>
           </div>
         </div>
@@ -37,7 +42,7 @@ function RootIndex() {
 
       <GameFilters />
       <Suspense fallback={<GamesGridSkeleton />}>
-        <GameInfiniteScroll />
+        <GamesInfiniteScroll />
       </Suspense>
     </div>
   )

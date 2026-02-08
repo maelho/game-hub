@@ -161,7 +161,7 @@ function CarouselPrevious({
   return (
     <Button
       className={cn(
-        'absolute size-8 rounded-full',
+        'absolute size-8 rounded-sm border-industrial-border bg-industrial-primary/90 text-industrial-text-secondary hover:bg-industrial-secondary hover:text-industrial-accent hover:border-industrial-accent',
         orientation === 'horizontal'
           ? 'top-1/2 -left-12 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -174,7 +174,7 @@ function CarouselPrevious({
       variant={variant}
       {...props}
     >
-      <ArrowLeft />
+      <ArrowLeft className="size-4" />
       <span className="sr-only">Previous slide</span>
     </Button>
   )
@@ -191,7 +191,7 @@ function CarouselNext({
   return (
     <Button
       className={cn(
-        'absolute size-8 rounded-full',
+        'absolute size-8 rounded-sm border-industrial-border bg-industrial-primary/90 text-industrial-text-secondary hover:bg-industrial-secondary hover:text-industrial-accent hover:border-industrial-accent',
         orientation === 'horizontal'
           ? 'top-1/2 -right-12 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -204,7 +204,7 @@ function CarouselNext({
       variant={variant}
       {...props}
     >
-      <ArrowRight />
+      <ArrowRight className="size-4" />
       <span className="sr-only">Next slide</span>
     </Button>
   )
