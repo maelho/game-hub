@@ -8,8 +8,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   component: Layout,
   notFoundComponent: () => {
     return (
-      <div>
-        <p>This is the notFoundComponent configured on root route</p>
+      <div className="flex min-h-[50vh] items-center justify-center">
+        <div className="space-y-2 text-center">
+          <p className="mono-data text-industrial-accent text-lg">404</p>
+          <p className="text-industrial-text-tertiary text-sm">PAGE_NOT_FOUND</p>
+        </div>
       </div>
     )
   },
@@ -22,7 +25,7 @@ function Layout() {
         clearOnDefault: false,
       }}
     >
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-screen flex-col bg-industrial-primary">
         <Navbar />
         <main className="flex-1">
           <Outlet />

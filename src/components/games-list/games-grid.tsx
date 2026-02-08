@@ -6,6 +6,7 @@ const breakpoints = {
   sm: 640,
   md: 768,
   lg: 1024,
+  xl: 1280,
 } as const
 
 // Number of priority images per column (above-the-fold optimization)
@@ -84,14 +85,20 @@ export function GamesGrid({ data }: { data: GamesListResponse[] }) {
   const games = useMemo(() => dedupeAndSplit(data, columnsCounter), [data, columnsCounter])
 
   if (games.length === 0 || games.every((col) => col.length === 0)) {
-    return <div className="flex min-h-100 items-center justify-center text-muted-foreground">No games found</div>
+    return (
+      <div className="flex min-h-64 items-center justify-center">
+        <div className="text-center">
+          <span className="text-industrial-text-tertiary text-sm">NO_RESULTS_FOUND</span>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="flex gap-6" ref={ref}>
+    <div className="flex gap-4" ref={ref}>
       {games.map((columns, columnIndex) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: i don't need this
-        <div className="flex flex-1 flex-col gap-6" key={columnIndex}>
+        <div className="flex flex-1 flex-col gap-4" key={columnIndex}>
           {columns.map((game, rowIndex) => (
             <MemoizedGameCard game={game} key={`${game.slug}${columnIndex}`} priority={rowIndex < PRIORITY_ROWS} />
           ))}

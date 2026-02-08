@@ -72,6 +72,7 @@ export type ListNames = 'main' | 'greatest' | 'greatest' | 'popular'
 export interface GameLits {
   list?: ListNames
   params?: GamesQueryParams
+  signal?: AbortSignal
 }
 
 export interface Genre {

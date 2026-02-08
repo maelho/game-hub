@@ -7,7 +7,7 @@
 - **Data Fetching**: TanStack Query
 - **Routing**: TanStack Router
 - **URL State Management**: nuqs
-- **HTTP Client**: ky
+- **HTTP Client**: ofetch
 - **Package Manager**: Bun
 - **Linting/Formatting**: Biome
 - **Icons**: Lucide React
@@ -36,7 +36,7 @@ bun install
 1. Create a `.env.local` file and add your RAWG API key:
 
 ```env
-VITE_API_KEY=your_rawg_api_key_here
+VITE_RAWG_API_KEY=your_rawg_api_key_here
 VITE_API_BASE_URL=https://api.rawg.io/api
 ```
 

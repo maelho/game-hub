@@ -2,23 +2,21 @@ import { ExternalLink } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t bg-background/95 py-6">
-      <div className="container mx-auto flex flex-col items-center justify-center gap-2 px-4 text-center text-muted-foreground text-sm sm:px-6">
-        <p className="flex items-center gap-1">
-          Game data provided by{' '}
+    <footer className="mt-auto border-industrial-border border-t bg-industrial-primary py-6">
+      <div className="container mx-auto flex flex-col items-center justify-center gap-3 px-4 text-center sm:px-6">
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] text-industrial-text-tertiary uppercase tracking-wider">Data source:</span>
           <a
-            className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
+            className="inline-flex items-center gap-1.5 text-industrial-text-secondary text-xs transition-colors hover:text-industrial-accent"
             href="https://rawg.io"
             rel="noopener noreferrer"
             target="_blank"
           >
-            RAWG
-            <ExternalLink className="h-3 w-3" />
+            RAWG.io
+            <ExternalLink className="size-3" />
           </a>
-        </p>
-        <p className="text-muted-foreground/70 text-xs">
-          The largest open video game database
-        </p>
+        </div>
+        <p className="mono-data text-[10px] text-industrial-text-tertiary">The largest open video game database</p>
       </div>
     </footer>
   )
