@@ -24,7 +24,8 @@ export default defineConfig({
     }),
     react(),
     babel({
-      presets: [reactCompilerPreset()]
+      presets: [reactCompilerPreset()],
+      plugins: [],
     }),
     tailwindcss(),
   ],
