@@ -14,7 +14,15 @@ import { gameScreenshotsQueryOptions } from '@/lib/query-options'
 import { cn } from '@/lib/utils'
 import type { ScreenshotsListResponse } from '@/services/rawg/types'
 
-function LazyScreenshotImage({ alt, src, className }: { alt: string; src: string; className?: string }) {
+function LazyScreenshotImage({
+  alt,
+  src,
+  className,
+}: {
+  alt: string
+  src: string
+  className?: string
+}) {
   const [loaded, setLoaded] = useState(false)
   const imgRef = useRef<HTMLImageElement>(null)
 
@@ -41,7 +49,12 @@ function LazyScreenshotImage({ alt, src, className }: { alt: string; src: string
   }, [])
 
   return (
-    <div className={cn('relative aspect-video w-full overflow-hidden bg-industrial-tertiary', className)}>
+    <div
+      className={cn(
+        'relative aspect-video w-full overflow-hidden bg-industrial-tertiary',
+        className,
+      )}
+    >
       <div
         className={cn(
           'absolute inset-0 flex items-center justify-center transition-opacity duration-200',
@@ -153,7 +166,9 @@ export default function GameScreenshots({
           <span className="font-medium text-[10px] text-industrial-text-tertiary uppercase tracking-wider">
             Screenshots
           </span>
-          <span className="mono-data text-[10px] text-industrial-text-tertiary">1 / {initialScreenshots.length}</span>
+          <span className="mono-data text-[10px] text-industrial-text-tertiary">
+            1 / {initialScreenshots.length}
+          </span>
         </div>
 
         <div className="relative aspect-video w-full overflow-hidden bg-industrial-tertiary">
@@ -199,7 +214,11 @@ export default function GameScreenshots({
         <CarouselNext className="right-2 border-industrial-border bg-industrial-primary/90 text-industrial-text-secondary opacity-0 backdrop-blur-sm transition-all duration-150 hover:border-industrial-accent hover:bg-industrial-secondary hover:text-industrial-accent disabled:opacity-0 group-hover:opacity-100 sm:right-4" />
       </Carousel>
 
-      <Carousel className="w-full" opts={{ dragFree: true, containScroll: 'trimSnaps' }} setApi={setThumbApi}>
+      <Carousel
+        className="w-full"
+        opts={{ dragFree: true, containScroll: 'trimSnaps' }}
+        setApi={setThumbApi}
+      >
         <CarouselContent className="-ml-1.5 sm:-ml-2">
           {screenshots.results.map((screenshot, index) => {
             const isActive = index === current
@@ -221,7 +240,10 @@ export default function GameScreenshots({
                   onClick={() => handleThumbClick(index)}
                   type="button"
                 >
-                  <LazyScreenshotImage alt={`${slug} thumbnail ${index + 1}`} src={screenshot.image} />
+                  <LazyScreenshotImage
+                    alt={`${slug} thumbnail ${index + 1}`}
+                    src={screenshot.image}
+                  />
                 </button>
               </CarouselItem>
             )

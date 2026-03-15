@@ -1,32 +1,38 @@
-import path from 'node:path'
 import tailwindcss from '@tailwindcss/vite'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
-import { defineConfig } from 'vite'
-import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import babel from '@rolldown/plugin-babel'
+import viteReact, { reactCompilerPreset } from '@vitejs/plugin-react'
+import { defineConfig } from 'vite-plus'
 
-// https://vite.dev/config/
 export default defineConfig({
+  staged: {
+    '*': 'vp check --fix',
+  },
+  lint: {
+    ignorePatterns: ['dist/**'],
+    options: {
+      typeAware: true,
+      typeCheck: true,
+    },
+  },
+  fmt: {
+    singleQuote: true,
+    printWidth: 100,
+    tabWidth: 2,
+    semi: false,
+  },
   base: '/game-hub/',
+  appType: 'spa',
   preview: {
     port: 4173,
-  },
-  appType: 'spa',
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
   },
   plugins: [
     tanstackRouter({
       target: 'react',
       autoCodeSplitting: true,
     }),
-    react(),
-    babel({
-      presets: [reactCompilerPreset()],
-      plugins: [],
-    }),
+    viteReact(),
+    babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
   ],
 })

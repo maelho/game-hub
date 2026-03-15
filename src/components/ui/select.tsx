@@ -8,12 +8,22 @@ import { cn } from '@/lib/utils'
 const Select = SelectPrimitive.Root
 
 function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
-  return <SelectPrimitive.Group className={cn('scroll-my-1 p-1', className)} data-slot="select-group" {...props} />
+  return (
+    <SelectPrimitive.Group
+      className={cn('scroll-my-1 p-1', className)}
+      data-slot="select-group"
+      {...props}
+    />
+  )
 }
 
 function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
   return (
-    <SelectPrimitive.Value className={cn('flex flex-1 text-left', className)} data-slot="select-value" {...props} />
+    <SelectPrimitive.Value
+      className={cn('flex flex-1 text-left', className)}
+      data-slot="select-value"
+      {...props}
+    />
   )
 }
 
@@ -37,7 +47,11 @@ function SelectTrigger({
       {...props}
     >
       {children}
-      <SelectPrimitive.Icon render={<ChevronDownIcon className="pointer-events-none size-3.5 text-industrial-text-tertiary" />} />
+      <SelectPrimitive.Icon
+        render={
+          <ChevronDownIcon className="pointer-events-none size-3.5 text-industrial-text-tertiary" />
+        }
+      />
     </SelectPrimitive.Trigger>
   )
 }
@@ -52,7 +66,10 @@ function SelectContent({
   alignItemWithTrigger = true,
   ...props
 }: SelectPrimitive.Popup.Props &
-  Pick<SelectPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'side' | 'sideOffset' | 'alignItemWithTrigger'>) {
+  Pick<
+    SelectPrimitive.Positioner.Props,
+    'align' | 'alignOffset' | 'side' | 'sideOffset' | 'alignItemWithTrigger'
+  >) {
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Positioner
@@ -84,7 +101,10 @@ function SelectContent({
 function SelectLabel({ className, ...props }: SelectPrimitive.GroupLabel.Props) {
   return (
     <SelectPrimitive.GroupLabel
-      className={cn('px-3 py-2 text-industrial-text-tertiary text-xs uppercase tracking-wider', className)}
+      className={cn(
+        'px-3 py-2 text-industrial-text-tertiary text-xs uppercase tracking-wider',
+        className,
+      )}
       data-slot="select-label"
       {...props}
     />
@@ -105,7 +125,9 @@ function SelectItem({ className, children, ...props }: SelectPrimitive.Item.Prop
         {children}
       </SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator
-        render={<span className="pointer-events-none absolute right-2 flex size-3.5 items-center justify-center" />}
+        render={
+          <span className="pointer-events-none absolute right-2 flex size-3.5 items-center justify-center" />
+        }
       >
         <CheckIcon className="pointer-events-none text-industrial-accent" />
       </SelectPrimitive.ItemIndicator>
@@ -123,7 +145,10 @@ function SelectSeparator({ className, ...props }: SelectPrimitive.Separator.Prop
   )
 }
 
-function SelectScrollUpButton({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>) {
+function SelectScrollUpButton({
+  className,
+  ...props
+}: React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>) {
   return (
     <SelectPrimitive.ScrollUpArrow
       className={cn(
@@ -138,7 +163,10 @@ function SelectScrollUpButton({ className, ...props }: React.ComponentProps<type
   )
 }
 
-function SelectScrollDownButton({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.ScrollDownArrow>) {
+function SelectScrollDownButton({
+  className,
+  ...props
+}: React.ComponentProps<typeof SelectPrimitive.ScrollDownArrow>) {
   return (
     <SelectPrimitive.ScrollDownArrow
       className={cn(

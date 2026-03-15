@@ -33,7 +33,10 @@ export default function GamesInfiniteScroll() {
     <>
       <GamesGrid data={data.pages} />
 
-      <div className="col-span-full flex min-h-20 w-full items-center justify-center py-4" ref={loaderRef}>
+      <div
+        className="col-span-full flex min-h-20 w-full items-center justify-center py-4"
+        ref={loaderRef}
+      >
         {isFetchingNextPage || (hasNextPage && inView) ? <Spinner className="size-10" /> : null}
       </div>
     </>

@@ -6,12 +6,18 @@ import {
   STALE_TIMES,
   withCacheTimes,
 } from '@/lib/query-options.utils'
-import { getGameDetails, getGameScreenshots, getGameTrailers, getPlatformsParents } from '@/services/rawg'
+import {
+  getGameDetails,
+  getGameScreenshots,
+  getGameTrailers,
+  getPlatformsParents,
+} from '@/services/rawg'
 import type { GamesQueryParams } from '@/services/rawg/types'
 
 const gameQueryKeys = {
   all: ['games'] as const,
-  infinite: (filters?: GamesQueryParams) => [...gameQueryKeys.all, 'infinite', filters ?? 'all'] as const,
+  infinite: (filters?: GamesQueryParams) =>
+    [...gameQueryKeys.all, 'infinite', filters ?? 'all'] as const,
   detail: (id: string | number) => [...gameQueryKeys.all, 'detail', id] as const,
   screenshots: (id: string | number) => [...gameQueryKeys.all, 'screenshots', id] as const,
   trailers: (id: string | number) => [...gameQueryKeys.all, 'trailers', id] as const,
@@ -23,7 +29,8 @@ export function gameQueryOptions(filters?: GamesQueryParams) {
     queryKey: gameQueryKeys.infinite(filters),
     queryFn: createGamesQueryFn(filters),
     initialPageParam: 1,
-    getNextPageParam: (lastPage, _allPages, lastPageParam) => (lastPage.next ? lastPageParam + 1 : undefined),
+    getNextPageParam: (lastPage, _allPages, lastPageParam) =>
+      lastPage.next ? lastPageParam + 1 : undefined,
     ...defaultQueryOptions,
     ...withCacheTimes(STALE_TIMES.games, 2),
   })

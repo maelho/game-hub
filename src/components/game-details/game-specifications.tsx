@@ -7,7 +7,9 @@ interface GameSpecificationsProps {
   game: Game
 }
 
-export const GameSpecifications = memo(function GameSpecifications({ game }: GameSpecificationsProps) {
+export const GameSpecifications = memo(function GameSpecifications({
+  game,
+}: GameSpecificationsProps) {
   const formattedDate = game.released
     ? new Intl.DateTimeFormat('en-US', {
         year: 'numeric',

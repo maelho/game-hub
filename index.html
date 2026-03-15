@@ -7,15 +7,15 @@
     <title>Games</title>
     <!-- GitHub Pages SPA redirect handler -->
     <script>
-      (function () {
-        var redirect = sessionStorage.getItem("redirect");
+      ;(function () {
+        var redirect = sessionStorage.getItem('redirect')
         if (redirect) {
-          sessionStorage.removeItem("redirect");
+          sessionStorage.removeItem('redirect')
           // Prepend the basepath to the redirect path
-          var fullPath = "/game-hub" + redirect;
-          window.history.replaceState(null, null, fullPath);
+          var fullPath = '/game-hub' + redirect
+          window.history.replaceState(null, null, fullPath)
         }
-      })();
+      })()
     </script>
   </head>
 
