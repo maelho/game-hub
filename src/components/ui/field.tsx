@@ -24,7 +24,10 @@ function FieldLegend({
 }: React.ComponentProps<'legend'> & { variant?: 'legend' | 'label' }) {
   return (
     <legend
-      className={cn('mb-3 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base', className)}
+      className={cn(
+        'mb-3 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base',
+        className,
+      )}
       data-slot="field-legend"
       data-variant={variant}
       {...props}
@@ -137,7 +140,10 @@ function FieldSeparator({
 }) {
   return (
     <div
-      className={cn('relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2', className)}
+      className={cn(
+        'relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2',
+        className,
+      )}
       data-content={!!children}
       data-slot="field-separator"
       {...props}

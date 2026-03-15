@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { useRef } from 'react'
+import { useCallback, useRef } from 'react'
 import { formatPlatforms } from '@/lib/platform'
 import { gameDetailsQueryOptions, gameScreenshotsQueryOptions } from '@/lib/query-options'
 import { cn } from '@/lib/utils'
@@ -20,24 +20,22 @@ export default function GameCard({ game, priority = false }: GameCardProps) {
   const prefetchTimeout = useRef<number | null>(null)
   const PREFETCH_DELAY = 150
 
-  const handlePrefetch = () => {
+  const handlePrefetch = useCallback(() => {
     if (hasPrefetched.current || prefetchTimeout.current !== null) return
-
     prefetchTimeout.current = window.setTimeout(() => {
       prefetchTimeout.current = null
       if (hasPrefetched.current) return
-
       hasPrefetched.current = true
       queryClient.prefetchQuery(gameDetailsQueryOptions(game.slug))
       queryClient.prefetchQuery(gameScreenshotsQueryOptions(game.slug))
     }, PREFETCH_DELAY)
-  }
+  }, [queryClient, game.slug])
 
-  const handleCancelPrefetch = () => {
+  const handleCancelPrefetch = useCallback(() => {
     if (prefetchTimeout.current === null) return
     window.clearTimeout(prefetchTimeout.current)
     prefetchTimeout.current = null
-  }
+  }, [])
 
   const scoreClass = game.metacritic
     ? game.metacritic >= 75
@@ -95,11 +93,15 @@ export default function GameCard({ game, priority = false }: GameCardProps) {
 
           <div className="flex items-center justify-between gap-2 border-industrial-border-strong border-t border-dotted pt-1">
             {platformCodes && (
-              <span className="text-[10px] text-industrial-text-tertiary tracking-wide">{platformCodes}</span>
+              <span className="text-[10px] text-industrial-text-tertiary tracking-wide">
+                {platformCodes}
+              </span>
             )}
 
             {game.rating && game.rating > 0 && (
-              <span className="mono-data text-[10px] text-industrial-text-secondary">{game.rating.toFixed(1)}/5</span>
+              <span className="mono-data text-[10px] text-industrial-text-secondary">
+                {game.rating.toFixed(1)}/5
+              </span>
             )}
           </div>
         </div>

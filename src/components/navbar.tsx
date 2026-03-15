@@ -1,7 +1,7 @@
-import { Link, useNavigate } from '@tanstack/react-router'
-import { Search } from 'lucide-react'
-import { type FormEvent, type KeyboardEvent, useEffect, useRef, useState } from 'react'
-import { useGameFilters } from '@/hooks/useGameFilters'
+import { Link, useNavigate } from "@tanstack/react-router"
+import { Search } from "lucide-react"
+import { type FormEvent, type KeyboardEvent, useEffect, useRef, useState } from "react"
+import { useGameFilters } from "@/hooks/useGameFilters"
 
 export default function Navbar() {
   const [filters] = useGameFilters()
@@ -21,22 +21,22 @@ export default function Navbar() {
       const isInputFocused =
         activeElement instanceof HTMLInputElement ||
         activeElement instanceof HTMLTextAreaElement ||
-        activeElement?.getAttribute('contenteditable') === 'true'
+        activeElement?.getAttribute("contenteditable") === "true"
 
-      if (e.key === '/' && !isInputFocused) {
+      if (e.key === "/" && !isInputFocused) {
         e.preventDefault()
         inputRef.current?.focus()
       }
     }
 
-    document.addEventListener('keydown', handleGlobalKeyDown)
-    return () => document.removeEventListener('keydown', handleGlobalKeyDown)
+    document.addEventListener("keydown", handleGlobalKeyDown)
+    return () => document.removeEventListener("keydown", handleGlobalKeyDown)
   }, [])
 
   const handleLogoClick = () => {
-    setSearchValue('')
+    setSearchValue("")
     navigate({
-      to: '/',
+      to: "/",
       search: {},
     })
   }
@@ -48,14 +48,14 @@ export default function Navbar() {
     inputRef.current?.blur()
 
     navigate({
-      to: '/',
+      to: "/",
       search: trimmedSearch ? { search: trimmedSearch } : {},
     })
   }
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Escape') {
-      setSearchValue('')
+    if (e.key === "Escape") {
+      setSearchValue("")
       inputRef.current?.blur()
     }
   }
@@ -64,7 +64,11 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-industrial-border border-b bg-industrial-primary/95 backdrop-blur-sm">
       <div className="container mx-auto flex h-14 items-center gap-6 px-4 sm:px-6">
         {/* Logo - Terminal style */}
-        <Link className="group flex items-center gap-2 transition-colors duration-150" onClick={handleLogoClick} to="/">
+        <Link
+          className="group flex items-center gap-2 transition-colors duration-150"
+          onClick={handleLogoClick}
+          to="/"
+        >
           <span className="font-medium text-industrial-accent">[</span>
           <span className="text-industrial-text text-sm tracking-wide transition-colors duration-150 group-hover:text-industrial-accent">
             GAME_HUB
@@ -78,15 +82,15 @@ export default function Navbar() {
             <div
               className={`flex h-9 items-center gap-2 border px-3 transition-all duration-150 ${
                 isFocused
-                  ? 'border-industrial-accent bg-industrial-secondary'
-                  : 'border-industrial-border bg-industrial-secondary/50 hover:border-industrial-border-strong'
+                  ? "border-industrial-accent bg-industrial-secondary"
+                  : "border-industrial-border bg-industrial-secondary/50 hover:border-industrial-border-strong"
               }
               `}
-              style={{ borderRadius: 'var(--radius-sm)' }}
+              style={{ borderRadius: "var(--radius-sm)" }}
             >
               <Search
                 className={`size-3.5 flex-shrink-0 transition-colors duration-150 ${
-                  isFocused ? 'text-industrial-accent' : 'text-industrial-text-tertiary'
+                  isFocused ? "text-industrial-accent" : "text-industrial-text-tertiary"
                 }`}
               />
               <input
@@ -98,7 +102,7 @@ export default function Navbar() {
                 placeholder="search..."
                 ref={inputRef}
                 type="text"
-                value={searchValue ?? ''}
+                value={searchValue ?? ""}
               />
               <kbd className="hidden rounded-sm border border-industrial-border bg-industrial-tertiary px-1.5 py-0.5 text-[10px] text-industrial-text-tertiary sm:inline-flex">
                 /

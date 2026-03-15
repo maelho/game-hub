@@ -63,11 +63,11 @@ export interface GamesQueryParams {
   exclude_game_series?: boolean
   discover?: boolean
   exclude_stores?: string // e.g. "5,6"
-  ordering?: GameSortOption | string
+  ordering?: string
   [index: string]: string | boolean | number | undefined
 }
 
-export type ListNames = 'main' | 'greatest' | 'greatest' | 'popular'
+export type ListNames = 'main' | 'greatest' | 'popular'
 
 export interface GameLits {
   list?: ListNames

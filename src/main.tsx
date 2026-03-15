@@ -1,7 +1,10 @@
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
 import type { Query } from '@tanstack/react-query'
 import { QueryClient } from '@tanstack/react-query'
-import { type PersistQueryClientOptions, PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
+import {
+  type PersistQueryClientOptions,
+  PersistQueryClientProvider,
+} from '@tanstack/react-query-persist-client'
 import { createRouter, RouterProvider } from '@tanstack/react-router'
 
 import { StrictMode } from 'react'

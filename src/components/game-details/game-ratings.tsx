@@ -18,7 +18,9 @@ export const GameRatings = memo(function GameRatings({ game }: GameRatingsProps)
 
       <div className="flex items-end justify-between">
         <div>
-          <span className="mono-data font-medium text-3xl text-industrial-text">{game.rating.toFixed(1)}</span>
+          <span className="mono-data font-medium text-3xl text-industrial-text">
+            {game.rating.toFixed(1)}
+          </span>
           <span className="text-industrial-text-tertiary text-sm">/5</span>
         </div>
         {game.ratings_count && (

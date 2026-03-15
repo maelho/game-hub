@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "@fontsource-variable/jetbrains-mono";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '@fontsource-variable/jetbrains-mono';
 
 @plugin "@tailwindcss/typography";
 
@@ -36,7 +36,8 @@
 
   --space-unit: 4px;
 
-  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --font-mono:
+    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
   --tracking-tight: -0.02em;
   --tracking-wide: 0.05em;
   --tracking-wider: 0.1em;
@@ -115,8 +116,8 @@
 
   html {
     font-feature-settings:
-      "liga" 1,
-      "calt" 1;
+      'liga' 1,
+      'calt' 1;
     background-color: var(--bg-base);
     @apply font-mono antialiased;
   }
@@ -153,8 +154,8 @@
 
 @utility mono-data {
   font-feature-settings:
-    "liga" 0,
-    "calt" 0;
+    'liga' 0,
+    'calt' 0;
 }
 
 @utility prose-industrial {

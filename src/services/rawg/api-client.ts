@@ -32,7 +32,7 @@ const rawgApi = ofetch.create({
       options.retryDelay = BASE_RETRY_DELAY + jitter
     }
 
-    const query = { ...(options.query ?? {}) } as Record<string, unknown>
+    const query = { ...options.query } as Record<string, unknown>
     query.key = RAWG_API_KEY
     options.query = query
   },
@@ -73,13 +73,19 @@ type RawgParams = GamesQueryParams | Record<string, unknown>
 function sanitizeParams(params?: RawgParams): Record<string, unknown> | undefined {
   if (!params) return undefined
 
-  const entries = Object.entries(params).filter(([_, value]) => value !== undefined && value !== null)
+  const entries = Object.entries(params).filter(
+    ([_, value]) => value !== undefined && value !== null,
+  )
   if (entries.length === 0) return undefined
 
   return Object.fromEntries(entries)
 }
 
-async function fetchRawgData<T>(endpoint: string, params?: RawgParams, signal?: AbortSignal): Promise<T> {
+async function fetchRawgData<T>(
+  endpoint: string,
+  params?: RawgParams,
+  signal?: AbortSignal,
+): Promise<T> {
   try {
     const cleanParams = sanitizeParams(params)
 
@@ -131,7 +137,8 @@ const endpoints = {
 } as const
 
 const createParamsEndpoint = <TResult, TParams extends RawgParams>(endpoint: string) => {
-  return ({ params, signal }: ParamsRequest<TParams>): Promise<TResult> => fetchRawgData(endpoint, params, signal)
+  return ({ params, signal }: ParamsRequest<TParams>): Promise<TResult> =>
+    fetchRawgData(endpoint, params, signal)
 }
 
 const createSignalEndpoint = <TResult>(endpoint: string) => {
@@ -139,7 +146,8 @@ const createSignalEndpoint = <TResult>(endpoint: string) => {
 }
 
 const createSlugEndpoint = <TResult>(endpoint: (slug: string) => string) => {
-  return (slug: string, signal?: AbortSignal): Promise<TResult> => fetchRawgData(endpoint(slug), undefined, signal)
+  return (slug: string, signal?: AbortSignal): Promise<TResult> =>
+    fetchRawgData(endpoint(slug), undefined, signal)
 }
 
 const createListEndpoint = <TResult>(endpoint: (list: string) => string) => {
@@ -150,6 +158,10 @@ const createListEndpoint = <TResult>(endpoint: (list: string) => string) => {
 export const getGameLists = createListEndpoint<GamesListResponse>(endpoints.gameLists)
 export const getGames = createParamsEndpoint<GamesListResponse, GamesQueryParams>(endpoints.games)
 export const getGameDetails = createSlugEndpoint<GameDetailResponse>(endpoints.gameDetails)
-export const getGameScreenshots = createSlugEndpoint<ScreenshotsListResponse>(endpoints.gameScreenshots)
+export const getGameScreenshots = createSlugEndpoint<ScreenshotsListResponse>(
+  endpoints.gameScreenshots,
+)
 export const getGameTrailers = createSlugEndpoint<TrailersListResponse>(endpoints.gameTrailers)
-export const getPlatformsParents = createSignalEndpoint<PlatformsParentsResponse>(endpoints.platformsParents)
+export const getPlatformsParents = createSignalEndpoint<PlatformsParentsResponse>(
+  endpoints.platformsParents,
+)

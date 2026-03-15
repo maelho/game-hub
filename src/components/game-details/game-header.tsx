@@ -22,7 +22,9 @@ export const GameHeader = memo(function GameHeader({ game }: GameHeaderProps) {
       <header className="mb-8 border-industrial-border-strong border-b pb-4">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-2">
-            <h1 className="font-medium text-industrial-text text-xl leading-tight sm:text-2xl">{game.name}</h1>
+            <h1 className="font-medium text-industrial-text text-xl leading-tight sm:text-2xl">
+              {game.name}
+            </h1>
             {game.alternative_names && game.alternative_names.length > 0 && (
               <p className="text-industrial-text-tertiary text-xs">
                 aka {game.alternative_names.slice(0, 2).join(', ')}
@@ -32,7 +34,9 @@ export const GameHeader = memo(function GameHeader({ game }: GameHeaderProps) {
 
           {game.metacritic && (
             <div className="flex items-center gap-2">
-              <span className="text-[10px] text-industrial-text-tertiary uppercase tracking-wider">Metacritic</span>
+              <span className="text-[10px] text-industrial-text-tertiary uppercase tracking-wider">
+                Metacritic
+              </span>
               <MetacriticScore score={game.metacritic} size="lg" />
             </div>
           )}

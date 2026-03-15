@@ -84,7 +84,7 @@ export function GamesGrid({ data }: { data: GamesListResponse[] }) {
 
   const games = useMemo(() => dedupeAndSplit(data, columnsCounter), [data, columnsCounter])
 
-  if (games.length === 0 || games.every((col) => col.length === 0)) {
+  if (games.every((col) => col.length === 0)) {
     return (
       <div className="flex min-h-64 items-center justify-center">
         <div className="text-center">
@@ -100,7 +100,11 @@ export function GamesGrid({ data }: { data: GamesListResponse[] }) {
         // biome-ignore lint/suspicious/noArrayIndexKey: i don't need this
         <div className="flex flex-1 flex-col gap-4" key={columnIndex}>
           {columns.map((game, rowIndex) => (
-            <MemoizedGameCard game={game} key={`${game.slug}${columnIndex}`} priority={rowIndex < PRIORITY_ROWS} />
+            <MemoizedGameCard
+              game={game}
+              key={`${game.slug}${columnIndex}`}
+              priority={rowIndex < PRIORITY_ROWS}
+            />
           ))}
         </div>
       ))}
