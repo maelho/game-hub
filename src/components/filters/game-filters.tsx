@@ -71,7 +71,7 @@ export default function GameFilters() {
   const [filter, setFilters] = useGameFilters()
 
   return (
-    <div className="mb-6 flex gap-6 border-industrial-border-strong border-b border-dotted pb-4">
+    <div className="mb-8 flex gap-6">
       <div className="flex flex-col gap-1.5">
         <label
           className="font-medium text-[10px] text-industrial-text-tertiary uppercase tracking-wider"

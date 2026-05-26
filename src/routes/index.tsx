@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { X } from 'lucide-react'
+import { XIcon } from '@phosphor-icons/react'
 import { createStandardSchemaV1 } from 'nuqs'
 import { Suspense } from 'react'
 import { GameFilters } from '@/components/filters'
@@ -18,12 +18,12 @@ function RootIndex() {
   const searchQuery = filters.search
 
   return (
-    <div className="container mx-auto px-4 py-6 sm:px-6">
+    <div className="container mx-auto px-4 py-8 sm:px-6 sm:py-12">
       {searchQuery ? (
-        <div className="mb-6">
+        <div className="mb-8">
           <div className="flex items-center gap-3">
-            <h1 className="text-industrial-text text-sm">
-              <span className="text-industrial-text-tertiary">SEARCH:</span>{' '}
+            <h1 className="font-serif text-industrial-text text-xl leading-[1.2] tracking-[-0.02em] sm:text-2xl">
+              <span className="text-industrial-text-tertiary">Search:</span>{' '}
               <span className="text-industrial-accent">"{searchQuery}"</span>
             </h1>
             <Link to="/">
@@ -32,7 +32,7 @@ function RootIndex() {
                 style={{ borderRadius: 'var(--radius-sm)' }}
                 type="button"
               >
-                <X className="size-3" />
+                <XIcon className="size-3" weight="bold" />
                 clear
               </button>
             </Link>

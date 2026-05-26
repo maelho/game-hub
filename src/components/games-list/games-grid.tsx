@@ -1,4 +1,5 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import type { Game, GamesListResponse } from '@/services/rawg'
 import GameCard from './game-card'
 
@@ -9,7 +10,6 @@ const breakpoints = {
   xl: 1280,
 } as const
 
-// Number of priority images per column (above-the-fold optimization)
 const PRIORITY_ROWS = 2
 
 function getColumns(width: number): number {
@@ -42,6 +42,7 @@ const MemoizedGameCard = memo(GameCard)
 export function GamesGrid({ data }: { data: GamesListResponse[] }) {
   const ref = useRef<HTMLDivElement>(null)
   const [columnsCounter, setColumnsCounter] = useState(getColumns(window.innerWidth))
+  const { ref: animRef, isVisible } = useScrollAnimation()
 
   useEffect(() => {
     const gridRef = ref.current
@@ -61,7 +62,6 @@ export function GamesGrid({ data }: { data: GamesListResponse[] }) {
         cancelAnimationFrame(rafId)
       }
 
-      // smooths it: Syncs with the browser's render cycle and reduce re-renders
       rafId = requestAnimationFrame(() => {
         const entry = entries[0]
         if (!entry) return
@@ -95,19 +95,23 @@ export function GamesGrid({ data }: { data: GamesListResponse[] }) {
   }
 
   return (
-    <div className="flex gap-4" ref={ref}>
-      {games.map((columns, columnIndex) => (
-        // biome-ignore lint/suspicious/noArrayIndexKey: i don't need this
-        <div className="flex flex-1 flex-col gap-4" key={columnIndex}>
-          {columns.map((game, rowIndex) => (
-            <MemoizedGameCard
-              game={game}
-              key={`${game.slug}${columnIndex}`}
-              priority={rowIndex < PRIORITY_ROWS}
-            />
-          ))}
-        </div>
-      ))}
+    <div
+      className={`transition-all duration-600 ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-3'}`}
+      ref={animRef}
+    >
+      <div className="flex gap-5" ref={ref}>
+        {games.map((columns, columnIndex) => (
+          <div className="flex flex-1 flex-col gap-5" key={columnIndex}>
+            {columns.map((game, rowIndex) => (
+              <MemoizedGameCard
+                game={game}
+                key={`${game.slug}${columnIndex}`}
+                priority={rowIndex < PRIORITY_ROWS}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

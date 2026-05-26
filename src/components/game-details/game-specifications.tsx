@@ -24,8 +24,8 @@ export const GameSpecifications = memo(function GameSpecifications({
   const publishers = game.publishers?.map((p) => p.name).join(', ')
 
   return (
-    <div className="rounded-sm border border-industrial-border bg-industrial-secondary p-4">
-      <h3 className="mb-4 border-industrial-border-strong border-b pb-2 font-medium text-[10px] text-industrial-accent uppercase tracking-wider">
+    <div className="rounded-md border border-industrial-border bg-industrial-secondary p-5">
+      <h3 className="mb-4 border-industrial-border-strong border-b pb-2 font-serif text-industrial-text text-base leading-[1.2] tracking-[-0.02em]">
         Specifications
       </h3>
 

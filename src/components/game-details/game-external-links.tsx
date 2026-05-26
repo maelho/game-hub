@@ -1,4 +1,4 @@
-import { ExternalLink } from 'lucide-react'
+import { ArrowSquareOutIcon } from '@phosphor-icons/react'
 import { memo } from 'react'
 import type { Game } from '@/services/rawg/types'
 
@@ -8,8 +8,8 @@ interface GameExternalLinksProps {
 
 export const GameExternalLinks = memo(function GameExternalLinks({ game }: GameExternalLinksProps) {
   return (
-    <div className="rounded-sm border border-industrial-border bg-industrial-secondary p-4">
-      <h3 className="mb-4 border-industrial-border-strong border-b pb-2 font-medium text-[10px] text-industrial-accent uppercase tracking-wider">
+    <div className="rounded-md border border-industrial-border bg-industrial-secondary p-5">
+      <h3 className="mb-4 border-industrial-border-strong border-b pb-2 font-serif text-industrial-text text-base leading-[1.2] tracking-[-0.02em]">
         External
       </h3>
 
@@ -22,7 +22,7 @@ export const GameExternalLinks = memo(function GameExternalLinks({ game }: GameE
             target="_blank"
           >
             <span>Official Website</span>
-            <ExternalLink className="size-3" />
+            <ArrowSquareOutIcon className="size-3" weight="bold" />
           </a>
         )}
         <a
@@ -32,7 +32,7 @@ export const GameExternalLinks = memo(function GameExternalLinks({ game }: GameE
           target="_blank"
         >
           <span>RAWG Database</span>
-          <ExternalLink className="size-3" />
+          <ArrowSquareOutIcon className="size-3" weight="bold" />
         </a>
       </div>
     </div>
