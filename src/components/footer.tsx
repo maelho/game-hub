@@ -1,8 +1,8 @@
-import { ExternalLink } from 'lucide-react'
+import { ArrowSquareOutIcon } from '@phosphor-icons/react'
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-industrial-border border-t bg-industrial-primary py-6">
+    <footer className="mt-auto border-industrial-border border-t bg-industrial-primary py-8">
       <div className="container mx-auto flex flex-col items-center justify-center gap-3 px-4 text-center sm:px-6">
         <div className="flex items-center gap-2">
           <span className="text-[10px] text-industrial-text-tertiary uppercase tracking-wider">
@@ -15,7 +15,7 @@ export default function Footer() {
             target="_blank"
           >
             RAWG.io
-            <ExternalLink className="size-3" />
+            <ArrowSquareOutIcon className="size-3" weight="bold" />
           </a>
         </div>
         <p className="mono-data text-[10px] text-industrial-text-tertiary">

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import {
   Carousel,
   type CarouselApi,
@@ -163,7 +164,7 @@ export default function GameScreenshots({
       <section className="space-y-3" ref={ref}>
         {/* Counter */}
         <div className="mb-2 flex items-center justify-between">
-          <span className="font-medium text-[10px] text-industrial-text-tertiary uppercase tracking-wider">
+          <span className="font-serif text-industrial-text text-base leading-[1.2] tracking-[-0.02em]">
             Screenshots
           </span>
           <span className="mono-data text-[10px] text-industrial-text-tertiary">
@@ -187,10 +188,15 @@ export default function GameScreenshots({
     return null
   }
 
+  const { ref: animRef, isVisible } = useScrollAnimation()
+
   return (
-    <section className="space-y-3" ref={ref}>
-      <div className="mb-2 flex items-center justify-between">
-        <span className="font-medium text-[10px] text-industrial-text-tertiary uppercase tracking-wider">
+    <section
+      className={`space-y-3 transition-all duration-600 ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-3'}`}
+      ref={animRef}
+    >
+      <div className="mb-2 flex items-center justify-between" ref={ref}>
+        <span className="font-serif text-industrial-text text-base leading-[1.2] tracking-[-0.02em]">
           Screenshots
         </span>
         <span className="mono-data text-[10px] text-industrial-text-tertiary">

@@ -11,8 +11,8 @@ export const GameRatings = memo(function GameRatings({ game }: GameRatingsProps)
   }
 
   return (
-    <div className="rounded-sm border border-industrial-border bg-industrial-secondary p-4">
-      <h3 className="mb-4 border-industrial-border-strong border-b pb-2 font-medium text-[10px] text-industrial-accent uppercase tracking-wider">
+    <div className="rounded-md border border-industrial-border bg-industrial-secondary p-5">
+      <h3 className="mb-4 border-industrial-border-strong border-b pb-2 font-serif text-industrial-text text-base leading-[1.2] tracking-[-0.02em]">
         User Ratings
       </h3>
 
@@ -30,7 +30,7 @@ export const GameRatings = memo(function GameRatings({ game }: GameRatingsProps)
         )}
       </div>
 
-      <div className="mt-3 h-1 overflow-hidden rounded-sm bg-industrial-tertiary">
+      <div className="mt-3 h-1.5 overflow-hidden rounded-sm bg-industrial-tertiary">
         <div
           className="h-full bg-industrial-accent transition-all duration-500"
           style={{ width: `${(game.rating / 5) * 100}%` }}

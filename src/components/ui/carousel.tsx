@@ -1,5 +1,5 @@
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { CaretLeftIcon, CaretRightIcon } from '@phosphor-icons/react'
 import * as React from 'react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -181,7 +181,7 @@ function CarouselPrevious({
       variant={variant}
       {...props}
     >
-      <ArrowLeft className="size-4" />
+      <CaretLeftIcon className="size-4" weight="bold" />
       <span className="sr-only">Previous slide</span>
     </Button>
   )
@@ -211,7 +211,7 @@ function CarouselNext({
       variant={variant}
       {...props}
     >
-      <ArrowRight className="size-4" />
+      <CaretRightIcon className="size-4" weight="bold" />
       <span className="sr-only">Next slide</span>
     </Button>
   )

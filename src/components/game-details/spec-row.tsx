@@ -1,4 +1,4 @@
-import { ExternalLink } from 'lucide-react'
+import { ArrowSquareOutIcon } from '@phosphor-icons/react'
 import { memo } from 'react'
 
 interface SpecRowProps {
@@ -24,7 +24,7 @@ export const SpecRow = memo(function SpecRow({ label, value, href }: SpecRowProp
             target="_blank"
           >
             {value}
-            <ExternalLink className="size-3" />
+            <ArrowSquareOutIcon className="size-3" weight="bold" />
           </a>
         ) : (
           value

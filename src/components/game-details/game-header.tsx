@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { ArrowLeft } from 'lucide-react'
+import { CaretLeftIcon } from '@phosphor-icons/react'
 import { memo } from 'react'
 import MetacriticScore from '@/components/metacritic-score'
 import type { Game } from '@/services/rawg/types'
@@ -15,14 +15,14 @@ export const GameHeader = memo(function GameHeader({ game }: GameHeaderProps) {
         className="mb-6 inline-flex items-center gap-2 text-industrial-text-secondary text-xs transition-colors hover:text-industrial-accent"
         to="/"
       >
-        <ArrowLeft className="size-3" />
+        <CaretLeftIcon className="size-3" weight="bold" />
         <span className="uppercase tracking-wider">Back</span>
       </Link>
 
       <header className="mb-8 border-industrial-border-strong border-b pb-4">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-2">
-            <h1 className="font-medium text-industrial-text text-xl leading-tight sm:text-2xl">
+            <h1 className="font-serif text-industrial-text text-2xl leading-[1.1] tracking-[-0.02em] sm:text-3xl">
               {game.name}
             </h1>
             {game.alternative_names && game.alternative_names.length > 0 && (
